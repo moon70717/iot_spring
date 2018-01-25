@@ -22,8 +22,8 @@ public class Excute {
 	
 	
 	public static void main(String[] args) {		
-		ApplicationContext ac=new ClassPathXmlApplicationContext("beans.xml");
-		Excute e=(Excute)ac.getBean("ex");
+		ApplicationContext fac=new ClassPathXmlApplicationContext("beans.xml");
+		Excute e=(Excute)fac.getBean("ex");
 		Worker ww=e.getWorker();
 		ww.goToWork();
 	}

@@ -10,6 +10,10 @@
 		</property>
 
 	</bean>
+	
+	<context:component-scan base-package="com.iot.spring.dev">
+	</context:component-scan>
+	
 	<bean id="developer" class="com.iot.spring.dev.Developer"></bean>
 	<bean id="deign" class="com.iot.spring.dev.Designer"></bean>
 </beans>
