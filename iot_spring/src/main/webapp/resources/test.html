@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<script src="/spring/resources/ui/js/jquery-3.2.1.js"></script>
+<script>
+    var gObj;
+    $(document).ready(function() {
+        gObj = new gridObj("testDiv");
+        gObj.setColumns(['이름','나이']);
+        gObj.send("/spring/h2");
+    });
+    var gridObj = function(id) {
+        var obj = document.getElementById(id);
+        var htmlStr = "";
+        var colsStr = "";
+        var dataStr = "";
+        if (!obj) {
+            alert("아이디를 확인하세요");
+        }
+        this.setColumns = function(columns) {
+            for (var i = 0; i < columns.length; i++) {
+                colsStr += "<th>" + columns[i] + "</th>";
+            }
+        }
+
+        var load = function(json) {
+            json = JSON.parse(json);
+            for (var i = 0; i < json.length; i++) {
+                var datas = json[i];
+                dataStr += "<tr>";
+                dataStr += "<td>" + datas.name + "</td>";
+                dataStr += "<td>" + datas.age + "</td>";
+                //dataStr += "<td>" + datas.addres + "</td>";
+                dataStr += "</tr>";
+            }
+        }
+
+        var init = function() {
+            htmlStr += "<table border=1>";
+            htmlStr += "<tr>";
+            htmlStr += colsStr;
+            htmlStr += "</tr>";
+            htmlStr += dataStr;
+            htmlStr += "</table>";
+            //obj.insertAdjacentHTML('afterbegin', htmlStr);
+            obj.innerHTML=htmlStr;
+        }
+        
+        this.send = function(url){
+        	$.ajax({
+                url: url,
+                type: 'get',
+                success: function(res) {
+                	load(JSON.stringify(res));
+                	init();
+                },
+                error: function(xhr, status, error) {
+                    alert("error");
+                }
+            });
+        }
+    }
+
+</script>
+
+<body>
+    <div id="testDiv">
+
+    </div>
+</body>
+
+</html>
