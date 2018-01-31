@@ -1,12 +1,12 @@
-package si.mp.le.service;
+package si.mp.le.user.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import si.mp.le.DAO.UserDAO;
-import si.mp.le.vo.User;
+import si.mp.le.user.DAO.UserDAO;
+import si.mp.le.user.vo.User;
 
 @Component
 public class UserService {
@@ -19,5 +19,9 @@ public class UserService {
 	
 	public List<User> getUserList() {
 		return uDAO.selectUserList();
+	}
+	
+	public int insertUser() {
+		return uDAO.insertUser();
 	}
 }

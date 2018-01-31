@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import si.mp.le.service.UserService;
-import si.mp.le.vo.User;
+import si.mp.le.user.service.UserService;
+import si.mp.le.user.vo.User;
 
 public class Excute {
 
@@ -19,8 +19,9 @@ public class Excute {
 		List<User> userList = us.getUserList();
 
 		for (User u : userList) {
-			System.out.println(u.getUiName());
+			System.out.println(u.toString());
 		}
 
+		System.out.println(us.insertUser());
 	}
 }
