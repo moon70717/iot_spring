@@ -12,20 +12,19 @@
 </head>
 <body>
 	<div id="gridbox" style="width: 75%; height: 400px;"></div>
+
+	<a href="https://docs.dhtmlx.com/grid__basic_initialization.html" target="_blank">docs</a>
 	
-	<a href="https://docs.dhtmlx.com/grid__basic_initialization.html">docs</a>
 	<script>
 		mygrid = new dhtmlXGridObject('gridbox');
-		mygrid.setImagePath("./codebase/imgs/");
-		mygrid.setHeader("Sales,Book title,Author,Price");//the headers of columns  
-		mygrid.setInitWidths("150,150,150,100"); //the widths of columns  
-		mygrid.setColAlign("left,left,left,left"); //the alignment of columns   
-		mygrid.setColTypes("ro,ed,ed,ed"); //the types of columns  
-		mygrid.setColSorting("int,str,str,int"); //the sorting types   
+		/* mygrid.setImagePath("./codebase/imgs/"); */
+		mygrid.setHeader("Sales,Book title,Author,Price");  
+		mygrid.setInitWidths("150,150,150,100");  
+		mygrid.setColAlign("left,left,left,left");   
+		mygrid.setColTypes("ro,ed,ed,ed");  
+		mygrid.setColSorting("int,str,str,int");   
 		mygrid.init();
-		<!--to do
-			ajax연결해서 data를 받아오기
-			-->
+		/* data json을 ajax로 받게 변경할것 */
 		var data = {
 			rows : [ {
 				id : 1,
