@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<script src="/spring/resources/ui/js/jquery-3.2.1.js"></script>
+<script src="/spring/resources/ui/js/grid-obj.js"></script>
+<script>
+var gObj;
+$(document).ready(function() {
+    gObj = new gridObj("testDiv");
+    gObj.setColumns(['이름','나이']);
+    gObj.send("/spring/h2");
+});
+</script>
+
+<body>
+    <div id="testDiv">
+
+    </div>
+</body>
+
+</html>

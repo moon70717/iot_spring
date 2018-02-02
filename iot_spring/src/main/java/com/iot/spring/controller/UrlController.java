@@ -1,30 +1,37 @@
 package com.iot.spring.controller;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.iot.spring.HomeController;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/path")
 public class UrlController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(UrlController.class);
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	private String getUrl(String url,String rootPath) {
-		return url.replace(rootPath+"/path", "");
+	private String getUrl(String url, String rootPath) {
+		return url.replace(rootPath + "/path", "");
 	}
-	
-	@RequestMapping("/**")
+
+	@RequestMapping("/path/**")
 	public String forwardJsp(HttpServletRequest req) {
-		String url=req.getRequestURI();
-		String rootPath=req.getContextPath();
-		url=getUrl(url,rootPath);
-		logger.info("path=>{}",url);
+		String url = req.getRequestURI();
+		String rootPath = req.getContextPath();
+		url = getUrl(url, rootPath);
+		logger.info("path=>{}", url);
 		return url;
+	}
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		model.addAttribute("title", "IOT-SPRING-2");
+		return "index";
 	}
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+	var calObj = function(nId1, nId2, opId, rDivId) {
+		var nObj1 = document.getElementById(nId1);
+		var nObj2 = document.getElementById(nId2);
+		var opObj = document.getElementById(opId);
+		var rDivObj = document.getElementById(rDivId);
+		var num1;
+		var num2;
+
+		var getNumber=function(obj){
+			return parseInt(obj.value);
+		}
+		
+		var getNumbers= function(){
+			num1 = parseInt(nObj1.value);
+			num2 = parseInt(nObj2.value);
+		}
+		var min = function() {
+			return num1 - num2;
+		}
+		var divide = function() {
+			return num1 / num2;
+		}
+		var multiply = function() {
+			return num1 * num2;
+		}
+		var add = function() {
+			return num1 + num2;
+		}
+		
+		this.setResult=function(){
+			var result=0;
+			getNumbers();
+			if(opObj.value=="+"){
+				result=add();
+			} else if(opObj.value=="-"){
+				result=min();
+			}else if(opObj.value=="*"){
+				result=multiply();
+			}else if(opObj.value=="/"){
+				result=divide();
+			}
+			if(!isNaN(result)){
+				rDivObj.innerHTML=result;
+			}
+		}
+	}
+	var cObj;
+	function init() {
+		cObj = new calObj("num1", "num2", "op", "resultDiv");
+	}
+	
+	function chValue(){
+		cObj.setResult();
+	}
+</script>
+<body onload="init()">
+	숫자1:
+	<input type="text" id="num1" onchange="chValue()"/>
+	<select id="op" onchange="chValue()">
+		<option value="+">더하기</option>
+		<option value="-">빼기</option>
+		<option value="*">곱하기</option>
+		<option value="/">나누기</option>
+	</select> 숫자2:
+	<input type="text" id="num2" onchange="chValue()"/>=
+	<div id="resultDiv"></div>
+</body>
+</html>
