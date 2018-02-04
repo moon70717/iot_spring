@@ -1,0 +1,54 @@
+<%-- <%@page import="com.iot.test.vo.UserClass"%>
+<%
+	String rootPath = request.getContextPath();
+	UserClass user = (UserClass) session.getAttribute("user");
+	String loginMenu = "Login";
+	String loginUrl = rootPath + "/view/user/login";
+	String act = "home";
+	if (user != null) {
+		loginMenu = "Logout";
+		loginUrl = rootPath + "/user/logout";
+	}
+	String uri = request.getRequestURI();
+	int idx = uri.lastIndexOf(".");
+	if (idx !=-1) {
+		uri = uri.substring(8, idx);
+	}
+%> --%>
+<%
+String uri = request.getRequestURI();
+int idx = uri.lastIndexOf(".");
+out.println(uri);
+if (idx !=-1) {
+	uri = uri.substring(14, idx);
+}
+%>
+<c:set var="uri" value="<%=uri%>"/>
+uri:${uri }
+<script>
+	$(document).ready(function() {
+		$("li a[href='${uri}']").parent().attr("class","active");
+	});
+</script>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<header class="cd-auto-hide-header">
+	<div class="logo"><a href="${root}/"><h2>IOT_JSP</h2></a></div>
+
+	<nav class="cd-primary-nav">
+		<a href="#cd-navigation" class="nav-trigger">
+			<span>
+				<em aria-hidden="true"></em>
+				Menu
+			</span>
+		</a> <!-- .nav-trigger -->
+  
+		<ul id="cd-navigation">
+			<li><a href="${root}">Home</a></li>
+			<li><a href="${root}/user/login">로그인로그아웃</a></li>
+			<li><a href="${root}/user/list">User List</a></li>
+			<li><a href="${root}/class/list">Class List</a></li>
+		</ul>
+	</nav> <!-- .cd-primary-nav -->
+</header>
+

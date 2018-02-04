@@ -1,0 +1,16 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
+
+.login-mini-btn {
+    width: 30%;
+    text-align: center;
+    margin: auto;
+}
+
+#buttton {
+    max-width: 330px;
+    margin: auto;
+}
+
+.left-header {
+    float: right;
+}

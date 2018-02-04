@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
-<c:set var="ver" value="?version1.0.0"></c:set>
-<script src="${root}/resources/ui/js/jquery-3.2.1.js"></script>
-<script src="${root}/resources/ui/js/grid-obj.js${ver}"></script>
+<c:set var="ver" value="?version1.0.0"/>
+<c:set var="rPath" value="${root}/resources"/>
+<script src="${rPath}/ui/js/jquery-3.2.1.js"></script>
+<script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
+<link rel="stylesheet" href="${rPath}/ui/css/bootstrap.css${ver}"/>
+<link rel="stylesheet" href="${rPath}/ui/css/bootstrap-theme.css${ver}"/>
