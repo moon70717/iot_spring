@@ -88,6 +88,6 @@ public class UserClass {
 	}
 	
 	public String dhtmlJson() {
-		return "data : [' "+uiNo+"', '"+uiName+"', '"+uiId+"', '"+uiRegdate+"' ]";
+		return "{ id:"+uiNo+",data : [' "+uiNo+"', '"+uiName+"', '"+uiId+"', '"+uiRegdate+"' ]";
 	}
 }

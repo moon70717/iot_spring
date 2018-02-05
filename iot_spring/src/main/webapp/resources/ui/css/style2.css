@@ -253,6 +253,12 @@ Primary style
 	font-family: "Hind", sans-serif;
 }
 
+header{
+	position:static;
+	margin:0;
+	border:0;
+}
+
 /* -----------------------------------
 
 active붙었을때

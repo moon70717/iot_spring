@@ -1,7 +1,6 @@
 package com.iot.spring.service.impl;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
-import com.iot.spring.User;
 import com.iot.spring.dao.UserDAO;
 import com.iot.spring.service.UserService;
 import com.iot.spring.vo.UserClass;
@@ -29,7 +27,7 @@ public class UserServiceImpl implements UserService {
 		String data="{rows : [ ";
 		int idx=1;
 		for(UserClass u:userList) {
-			data+="{ id:"+idx+","+u.dhtmlJson()+"}";
+			data+=u.dhtmlJson();
 			idx++;
 			if(userList.size()>=idx) {
 				data+=",";

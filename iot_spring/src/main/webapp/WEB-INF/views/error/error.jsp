@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>Error List</h2>
-	<c:forEach items="${errorMsg}" var="oe">
+	<h2>Error List</h2> 
+	${errorMsg}<br>
+	<%-- <c:forEach items="${errorMsg}" var="oe">
 		${oe}<br>
-	</c:forEach>
+	</c:forEach> --%>
 </body>
 </html>

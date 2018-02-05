@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.iot.spring.User;
 import com.iot.spring.dao.UserDAO;
-import com.iot.spring.vo.Emp;
 import com.iot.spring.vo.UserClass;
 
 @Repository
@@ -29,6 +28,12 @@ public class UserDAOImpl implements UserDAO {
 		SqlSession ss=ssf.openSession();
 		List<UserClass> userList=ss.selectList("user.selectUser");
 		return userList;
+	}
+
+	@Override
+	public User selectUser(int uiNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

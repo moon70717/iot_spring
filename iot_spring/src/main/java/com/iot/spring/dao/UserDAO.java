@@ -7,7 +7,9 @@ import com.iot.spring.vo.UserClass;
 
 public interface UserDAO {
 
-	public User selectUser(UserClass uc); 
+	public User selectUser(UserClass uc);
+	
+	public User selectUser(int uiNo);
 	
 	public List<UserClass> selectUserList();
 }
