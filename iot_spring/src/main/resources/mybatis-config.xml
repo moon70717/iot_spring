@@ -10,6 +10,7 @@
 	<typeAliases>
 		<typeAlias type="com.iot.spring.vo.Emp" alias="emp" />
 		<typeAlias type="com.iot.spring.vo.UserClass" alias="user"/>
+		<typeAlias type="com.iot.spring.vo.User" alias="userB"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="sql/user.xml" />

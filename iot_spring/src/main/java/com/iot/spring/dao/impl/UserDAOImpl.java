@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.iot.spring.User;
 import com.iot.spring.dao.UserDAO;
+import com.iot.spring.vo.User;
 import com.iot.spring.vo.UserClass;
 
 @Repository
@@ -18,21 +18,27 @@ public class UserDAOImpl implements UserDAO {
 	private SqlSessionFactory ssf;
 	
 	@Override
-	public User selectUser(UserClass uc) {
+	public UserClass selectUser(UserClass uc) {
 		SqlSession ss=ssf.openSession();
-		return (User) ss.selectList("user.findUser", uc);
+		return (UserClass) ss.selectList("user.findUser", uc);
 	}
 
 	@Override
 	public List<UserClass> selectUserList() {
 		SqlSession ss=ssf.openSession();
-		List<UserClass> userList=ss.selectList("user.selectUser");
-		return userList;
+		return ss.selectList("user.selectUserList");
 	}
 
 	@Override
-	public User selectUser(int uiNo) {
-		// TODO Auto-generated method stub
+	public List<User> selectUserA() {
+		SqlSession ss=ssf.openSession();
+		List<User> userList=ss.selectList("user.selectUser");
+		return userList;
+	}
+	
+	@Override
+	public UserClass selectUser(int uiNo) {
+		
 		return null;
 	}
 

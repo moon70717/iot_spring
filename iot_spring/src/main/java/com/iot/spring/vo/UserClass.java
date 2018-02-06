@@ -80,14 +80,13 @@ public class UserClass {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
 	@Override
 	public String toString() {
-		return "UserClass[ciNO="+ciNo+", ciName="+ciName+", ciDesc="+ciDesc+", uiNo="+uiNo+", uiName="+uiName+", uiAge="+uiAge+
-				", uiId="+uiId+", uiPwd="+uiPwd+", uiRegdate="+uiRegdate+", address="+address+"]";
+		return "UserClass[uiNO="+uiNo+", uiName="+uiName+", uiId="+uiId+", uiRegdate="+uiRegdate+", ciDesc="+ciDesc+", ciNo="+ciNo+", ciName="+ciName+", uiAge="+uiAge+
+				", uiPwd="+uiPwd+", address="+address+"]";
 	}
 	
 	public String dhtmlJson() {
-		return "{ id:"+uiNo+",data : [' "+uiNo+"', '"+uiName+"', '"+uiId+"', '"+uiRegdate+"' ]";
+		return "{ id:"+uiNo+",data : [' "+uiNo+"', '"+uiName+"', '"+uiId+"', '"+uiRegdate+"', '"+address+"' ]}";
 	}
 }

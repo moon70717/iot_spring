@@ -7,22 +7,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>번호</th>
-			<th>이름</th>
-			<th>월급</th>
-		</tr>
-		<tbody>
-			<c:forEach items="${empList}" var="emp">
-				<tr>
-					<td>${emp.empNo}</td>
-					<td>${emp.empName}</td>
-					<td>${emp.empSal}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-<a href="${path}/emp/write">사원정보 추가</a>
+
+	<div id="container">
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>월급</th>
+			</tr>
+			<tbody>
+				<c:forEach items="${empList}" var="emp">
+					<tr>
+						<td>${emp.empNo}</td>
+						<td>${emp.empName}</td>
+						<td>${emp.empSal}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<a href="${path}/emp/write">사원정보 추가</a>
+	</div>
 </body>
 </html>

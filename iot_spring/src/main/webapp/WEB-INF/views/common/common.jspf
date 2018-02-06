@@ -11,10 +11,13 @@
 <c:set var="rPath" value="${root}/resources"/>
 <script src="${rPath}/ui/js/jquery-3.2.1.js"></script>
 <script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
+<script src="${rPath}/ui/js/common.js"></script>
+<script src="${rPath}/ui/js/bootstrap-table.js"></script>
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap.css${ver}"/>
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap-theme.css${ver}"/>
 <link rel="stylesheet" href="${rPath}/ui/css/common.css">
 <link rel="stylesheet" href="${rPath}/ui/css/style.css">
 <link rel="stylesheet" href="${rPath}/ui/css/style2.css">
+<link rel="stylesheet" href="${rPath}/ui/css/bootstrap-table.css">
 
 <%-- <jsp:include page="/WEB-INF/views/common/header.jspf" flush="false" /> --%>

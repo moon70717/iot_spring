@@ -12,29 +12,66 @@
 	type="text/javascript"></script>
 <style>
 #gridbox {
-	width: 500px; 
+	width: 500px;
 	max-width: 40%;
 	height: 500px;
 	margin-top: 5%;
-	margin-left:35%;
+	margin-left: 35%;
 }
 </style>
 <body>
-	<div id="gridbox"></div>
+	<div id="gridbox">
+		<%-- <table data-toggle="table" id="userTable">
+			<thead>
+				<tr>
+					<th data-field="uiNo">번호</th>
+					<th data-field="uiName">이름</th>
+					<th data-field="uiId">아이디</th>
+				</tr>
+			</thead>
+		</table>
+		<a href="${path}/emp/write">사원정보 추가</a> --%>
+
+	</div>
 
 	<a href="https://docs.dhtmlx.com/grid__basic_initialization.html"
 		target="_blank">docs</a>
-
 	<script>
+		var vv = "";
 		mygrid = new dhtmlXGridObject('gridbox');
-		/* mygrid.setImagePath("./codebase/imgs/"); */
-		mygrid.setHeader("uiNo,uiName,uiId,uiRegdate");  
-		mygrid.setInitWidths("150,80,90,150");  
-		mygrid.setColAlign("left,left,left,left");   
-		mygrid.setColTypes("ro,ed,ed,ed");  
-		mygrid.setColSorting("int,str,str,str");   
+		mygrid.setImagePath("./codebase/imgs/");
+		mygrid.setHeader("uiNo,uiName,uiId");
+		mygrid.setInitWidths("150,80,90");
+		mygrid.setColAlign("left,left,left");
+		mygrid.setColTypes("ro,ed,ed");
+		mygrid.setColSorting("int,str,str");
+		mygrid.setColumnIds("uiNo", "uiName", "uiId");
 		mygrid.init();
-		mygrid.parse("${userList}", "json");
+		//mygrid.parse("${dhtmlUserList}", "json");
+
+		
+		var au = new AjaxUtil("${root}/user/lista", null, "GET", "json");
+		function callback(res) {
+			console.log(res);
+			vv = res;
+			mygrid.parse({
+				data : res
+			}, "js");
+		}
+		au.setCallbackSuccess(callback);
+		au.send();
+
+		/* $(document).ready(function(){
+			var au = new AjaxUtil("${root}/user/lista", null, "GET", "json");
+			function callback(res) {
+				console.log(res);
+				$("#userTable").bootstrapTable({
+					data : res
+				});
+			}
+			au.setCallbackSuccess(callback);
+			au.send();			
+		}); */
 	</script>
 </body>
 </html>

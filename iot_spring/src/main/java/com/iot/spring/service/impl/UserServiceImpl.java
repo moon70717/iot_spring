@@ -6,17 +6,22 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.iot.spring.controller.EmpController;
 import com.iot.spring.dao.UserDAO;
 import com.iot.spring.service.UserService;
+import com.iot.spring.vo.User;
 import com.iot.spring.vo.UserClass;
 
 @Service
 public class UserServiceImpl implements UserService {
 	private Gson gs = new Gson();
+	private static final Logger log = LoggerFactory.getLogger(EmpController.class);
 	
 	@Autowired
 	private UserDAO uDAO;
@@ -34,9 +39,16 @@ public class UserServiceImpl implements UserService {
 			}
 		} 
 		data+="]}";
-		req.setAttribute("userList", data);
+		/*data=gs.toJson(data);*/
+		req.setAttribute("dhtmlUserList", data);
+	}
+	
+	@Override
+	public List<User> getUserList() {
+		return uDAO.selectUserA();
 	}
 
+	
 	@Override
 	public HashMap<String, Object> login(HttpServletRequest req, HttpServletResponse res) {
 		UserClass uc=gs.fromJson(req.getParameter("param"), UserClass.class);

@@ -43,7 +43,8 @@ public class LogPrintAspect {
 			log.error("error=>{}", e);
 			ModelAndView mav=new ModelAndView("error/error");
 			/*NaverMessage nm=om.readValue(nDAO.getText(e.getMessage()), NaverMessage.class);*/
-			mav.addObject("errorMsg", nDAO.getText(e.getMessage()));
+			String data=nDAO.getText(e.getMessage());
+			mav.addObject("errorMsg", data);
 			return mav;
 		}
 		log.info("@Around end, RunTime :{}ms", (System.currentTimeMillis() - startTime));
