@@ -6,16 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="http://cdn.dhtmlx.com/edge/dhtmlx.css"
-	type="text/css">
-<script src="http://cdn.dhtmlx.com/edge/dhtmlx.js"
-	type="text/javascript"></script>
 <style>
 #gridbox {
-	width: 500px;
+	min-width: 200px;
 	max-width: 40%;
-	height: 500px;
-	margin-top: 5%;
+	height: 500px; 
+	margin-top: 1%;
 	margin-left: 35%;
 }
 </style>
@@ -37,25 +33,23 @@
 	<a href="https://docs.dhtmlx.com/grid__basic_initialization.html"
 		target="_blank">docs</a>
 	<script>
-		var vv = "";
+		var vv = "uiNo";
 		mygrid = new dhtmlXGridObject('gridbox');
 		mygrid.setImagePath("./codebase/imgs/");
-		mygrid.setHeader("uiNo,uiName,uiId");
-		mygrid.setInitWidths("150,80,90");
+		mygrid.setHeader(vv+",uiName,uiId");
+		mygrid.setInitWidths("50,80,90");
 		mygrid.setColAlign("left,left,left");
 		mygrid.setColTypes("ro,ed,ed");
-		mygrid.setColSorting("int,str,str");
-		mygrid.setColumnIds("uiNo", "uiName", "uiId");
+		mygrid.setColSorting("str,str,str");
+		mygrid.setColumnIds("uiNo,uiName,uiId");
 		mygrid.init();
 		//mygrid.parse("${dhtmlUserList}", "json");
-
 		
 		var au = new AjaxUtil("${root}/user/lista", null, "GET", "json");
 		function callback(res) {
 			console.log(res);
-			vv = res;
 			mygrid.parse({
-				data : res
+				data:res
 			}, "js");
 		}
 		au.setCallbackSuccess(callback);

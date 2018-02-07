@@ -6,18 +6,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <c:set var="ver" value="?version1.0.0"/>
 <c:set var="rPath" value="${root}/resources"/>
-<script src="${rPath}/ui/js/jquery-3.2.1.js"></script>
-<script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
-<script src="${rPath}/ui/js/common.js"></script>
-<script src="${rPath}/ui/js/bootstrap-table.js"></script>
+
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap.css${ver}"/>
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap-theme.css${ver}"/>
 <link rel="stylesheet" href="${rPath}/ui/css/common.css">
 <link rel="stylesheet" href="${rPath}/ui/css/style.css">
 <link rel="stylesheet" href="${rPath}/ui/css/style2.css">
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap-table.css">
+<link rel="stylesheet" href="${rPath}/dx/fonts/font_roboto/roboto.css">
+<link rel="stylesheet" href="${rPath}/dx/dhtmlx.css">
+
+<script src="${rPath}/ui/js/jquery-3.2.1.js"></script>
+<script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
+<script src="${rPath}/ui/js/common.js"></script>
+<script src="${rPath}/ui/js/bootstrap-table.js"></script>
+<script src="${rPath}/ui/js/bootstrap-table.js"></script>
+<script src="${rPath}/dx/dhtmlx.js"></script>
+<%@include file="/WEB-INF/views/common/header.jspf" %>
 
 <%-- <jsp:include page="/WEB-INF/views/common/header.jspf" flush="false" /> --%>

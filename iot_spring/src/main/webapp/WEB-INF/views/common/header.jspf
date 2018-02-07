@@ -18,13 +18,11 @@
 <%
 String uri = request.getRequestURI();
 int idx = uri.lastIndexOf(".");
-out.println(uri);
 if (idx !=-1) {
 	uri = uri.substring(14, idx);
 }
 %>
 <c:set var="uri" value="<%=uri%>"/>
-uri:${uri }
 <script>
 	$(document).ready(function() {
 		$("li a[href='${uri}']").parent().attr("class","active");
@@ -32,7 +30,7 @@ uri:${uri }
 </script>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<header class="cd-auto-hide-header">
+<header class="cd-auto-hide-header" style="position:static">
 	<div class="logo"><a href="${root}/"><h2>IOT_JSP</h2></a></div>
 
 	<nav class="cd-primary-nav">

@@ -35,7 +35,7 @@
 		<jsp-property-group>
 			<url-pattern>*.jsp</url-pattern>
 			<include-prelude>/WEB-INF/views/common/common.jspf</include-prelude>
-			<include-prelude>/WEB-INF/views/common/header.jspf</include-prelude>
+			<!-- <include-prelude>/WEB-INF/views/common/header.jspf</include-prelude> -->
 			<trim-directive-whitespaces>true</trim-directive-whitespaces>
 		</jsp-property-group>
 		
