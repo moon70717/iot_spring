@@ -19,4 +19,8 @@ public interface ConnectionService {
 	public List<TableVO> getTableList(String dbName);
 	
 	public List<Map<String, Object>> getColmnsList(String resource);
+	
+	public int updateConnectionInfo(ConnectionInfoVO ci);
+	
+	public int deleteConnectionInfo(ConnectionInfoVO ci);
 }

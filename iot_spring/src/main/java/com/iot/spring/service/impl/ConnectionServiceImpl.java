@@ -54,4 +54,16 @@ public class ConnectionServiceImpl implements ConnectionService {
 		return cDAO.selectColmnsList(resource);
 	}
 
+	@Override
+	public int updateConnectionInfo(ConnectionInfoVO ci) {
+		// TODO Auto-generated method stub
+		return cDAO.updateConnectionInfo(ci);
+	}
+
+	@Override
+	public int deleteConnectionInfo(ConnectionInfoVO ci) {  
+		// TODO Auto-generated method stub 
+		return cDAO.deleteConnectionInfo(ci);
+	}
+
 }

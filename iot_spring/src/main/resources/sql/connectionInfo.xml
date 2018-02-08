@@ -38,4 +38,16 @@
 		and table_name='user_info'
 		order by ordinal_position;
 	</select>
+	
+	<update id="updateConnectionInfo" parameterType="ci">
+		update connection_info
+		set ciName=#{ciName},ciUrl=#{ciUrl},ciPort=#{ciPort},
+		ciDatabase=#{ciDatabase},ciUser=#{ciUser},
+		ciPwd=#{ciPwd},uId=#{uId},ciEtc=#{ciEtc}
+		where ciNo=#{ciNo};	
+	</update>
+	<delete id="deleteConnectionInfo" parameterType="ci">
+		delete from connection_info
+		where ciNo=#{ciNo}
+	</delete>
 </mapper>

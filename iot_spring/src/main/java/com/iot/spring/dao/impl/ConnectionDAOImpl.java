@@ -67,4 +67,22 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 		return result;
 	}
 
+	@Override
+	public int updateConnectionInfo(ConnectionInfoVO ci) {
+		int result=0;
+		SqlSession ss=ssf.openSession();
+		result=ss.update("connection.updateConnectionInfo",ci);
+		ss.close();
+		return result;
+	}
+
+	@Override
+	public int deleteConnectionInfo(ConnectionInfoVO ci) {
+		int result=0;
+		SqlSession ss=ssf.openSession();
+		result=ss.update("connection.deleteConnectionInfo",ci);
+		ss.close();
+		return result;
+	}
+
 }

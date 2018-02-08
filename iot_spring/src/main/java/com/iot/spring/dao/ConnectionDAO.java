@@ -19,4 +19,8 @@ public interface ConnectionDAO {
 	public List<TableVO> selectTableList(String dbName);
 	
 	public List<Map<String,Object>> selectColmnsList(String resource);
+	
+	public int updateConnectionInfo(ConnectionInfoVO ci);
+	
+	public int deleteConnectionInfo(ConnectionInfoVO ci);
 }
