@@ -10,6 +10,7 @@ public class ConnectionInfoVO {
 	private String ciUser;
 	private String ciPwd;
 	private String ciEtc;
+	private String uId;
 	public int getCiNo() {
 		return ciNo;
 	}
@@ -57,6 +58,12 @@ public class ConnectionInfoVO {
 	}
 	public void setCiEtc(String ciEtc) {
 		this.ciEtc = ciEtc;
+	}
+	public String getuId() {
+		return uId;
+	}
+	public void setuId(String uId) {
+		this.uId = uId;
 	}
 	@Override
 	public String toString() {

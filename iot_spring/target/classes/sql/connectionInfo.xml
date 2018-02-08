@@ -3,11 +3,39 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="connection">
-	<select id="selectConnectionList" resultType="ci" >
-		select ciNo,ciName,ciUrl,ciPort,ciDatabase,ciUser,ciPwd,ciEtc from connection_info
+	<select id="selectConnectionList" resultType="ci">
+		select
+		ciNo,ciName,ciUrl,ciPort,ciDatabase,ciUser,
+		ciPwd,ciEtc from
+		connection_info
 	</select>
-	<select id="insertConnectionInfo" resultType="ci" parameterType="ci">
-	insert into connection_info(ciName,ciUrl,ciPort,ciDatabase,ciUser,ciPwd,ciEtc) 
-	values(#{ciName},#{ciUrl},#{ciPort},#{ciDatabase},#{ciUser},#{ciPwd},#{ciEtc})
+	<insert id="insertConnectionInfo" parameterType="ci">
+		insert into
+		connection_info(ciName,ciUrl,ciPort,ciDatabase,ciUser,ciPwd,uId,ciEtc)
+		values(#{ciName},#{ciUrl},#{ciPort},#{ciDatabase},#{ciUser},#{ciPwd},#{uId},#{ciEtc})
+	</insert>
+	
+	<select id="selectDatabase" resultType="map">
+		show databases
+	</select>
+	<select id="selectTable" resultType="tvo" parameterType="String">
+		select table_name as tableName,
+		table_comment as tableComment,
+		(data_length+index_length)/1024 as tableSize
+		from information_schema.tables
+		where table_schema=#{dbName}
+		and table_type='BASE TABLE';
+	</select>
+	
+	<select id="selectColumns" resultType="map" parameterType="String">
+		select column_name as colName,column_default as colDefault,
+		is_nullable as nullAble,data_type as dataType,
+		character_maximum_length as charMLength,
+		column_type as colType,column_key as colKey,
+		column_comment as colComment 
+		from information_schema.columns
+		where table_schema=#{dbName}
+		and table_name='user_info'
+		order by ordinal_position;
 	</select>
 </mapper>
