@@ -40,7 +40,13 @@ public class Exam {
 		System.out.println("김씨는 "+temp2+"명");
 		System.out.println("이재영은 "+temp3+"명");
 		System.out.println("정렬");
+		String[] ss=new String[hList.size()];
+		int i=0;
 		for(String s:hList.values()) {
+			ss[i++]=s;
+		}
+		Arrays.sort(ss);
+		for(String s:ss){
 			System.out.println(s);
 		}
 	}
