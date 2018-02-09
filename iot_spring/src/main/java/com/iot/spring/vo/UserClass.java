@@ -3,8 +3,6 @@ package com.iot.spring.vo;
 public class UserClass {
 
 	private int ciNo;
-	private String ciName;
-	private String ciDesc;
 	private int uiNo;
 	private String uiName;
 	private int uiAge;
@@ -12,31 +10,19 @@ public class UserClass {
 	private String uiPwd;
 	private String uiRegdate;
 	private String address;
-	private boolean saveId;
+	private char admin;
 	
-	public boolean isSaveId() {
-		return saveId;
+	public char admin() {
+		return admin;
 	}
-	public void setSaveId(boolean saveId) {
-		this.saveId = saveId;
+	public void setSaveId(char admin) {
+		this.admin = admin;
 	}
 	public int getCiNo() {
 		return ciNo;
 	}
 	public void setCiNo(int ciNo) {
 		this.ciNo = ciNo;
-	}
-	public String getCiName() {
-		return ciName;
-	}
-	public void setCiName(String ciName) {
-		this.ciName = ciName;
-	}
-	public String getCiDesc() {
-		return ciDesc;
-	}
-	public void setCiDesc(String ciDesc) {
-		this.ciDesc = ciDesc;
 	}
 	public int getUiNo() {
 		return uiNo;
@@ -82,7 +68,7 @@ public class UserClass {
 	}
 	@Override
 	public String toString() {
-		return "UserClass[uiNO="+uiNo+", uiName="+uiName+", uiId="+uiId+", uiRegdate="+uiRegdate+", ciDesc="+ciDesc+", ciNo="+ciNo+", ciName="+ciName+", uiAge="+uiAge+
+		return "UserClass[uiNO="+uiNo+", uiName="+uiName+", uiId="+uiId+", uiRegdate="+uiRegdate+", ciNo="+ciNo+", uiAge="+uiAge+
 				", uiPwd="+uiPwd+", address="+address+"]";
 	}
 	

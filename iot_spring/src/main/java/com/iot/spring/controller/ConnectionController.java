@@ -27,12 +27,41 @@ public class ConnectionController {
 	@Autowired
 	ConnectionService cs;
 	
+	
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
 	public @ResponseBody Map<String, Object> insertConnection(@RequestParam Map<String, Object> map) {
 		ObjectMapper om=new ObjectMapper();
 		ConnectionInfoVO ci=om.convertValue(map, ConnectionInfoVO.class);
 		int result=cs.insertConnectionInfo(ci);
-		map=null;
+		map.clear();
+		map.put("msg", "실패");
+		if(result==1) {
+			map.put("msg", "성공");
+		}
+		log.info("requsetMap=>{}",map);
+		return map;
+	}
+	
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> updateConnection(@RequestParam Map<String, Object> map) {
+		ObjectMapper om=new ObjectMapper();
+		ConnectionInfoVO ci=om.convertValue(map, ConnectionInfoVO.class);
+		int result=cs.updateConnectionInfo(ci);
+		map.clear();
+		map.put("msg", "실패");
+		if(result==1) {
+			map.put("msg", "성공");
+		}
+		log.info("requsetMap=>{}",map);
+		return map;
+	}
+	
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> deleteConnection(@RequestParam Map<String, Object> map) {
+		ObjectMapper om=new ObjectMapper();
+		ConnectionInfoVO ci=om.convertValue(map, ConnectionInfoVO.class);
+		int result=cs.deleteConnectionInfo(ci);
+		map.clear();
 		map.put("msg", "실패");
 		if(result==1) {
 			map.put("msg", "성공");
@@ -50,7 +79,7 @@ public class ConnectionController {
 	
 	@RequestMapping(value="/tables",method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getTableList(@RequestParam Map<String, Object> map) {
-		List<Map<String,Object>> dbList=cs.getDatabaseList();
+		List<ConnectionInfoVO> dbList=cs.getConnectionList();
 		map.put("dbList", dbList);
 		return map;
 	}

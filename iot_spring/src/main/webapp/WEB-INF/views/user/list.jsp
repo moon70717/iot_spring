@@ -36,7 +36,7 @@
 		var vv = "uiNo";
 		mygrid = new dhtmlXGridObject('gridbox');
 		mygrid.setImagePath("./codebase/imgs/");
-		mygrid.setHeader(vv+",uiName,uiId");
+		mygrid.setHeader("uiNo,uiName,uiId");
 		mygrid.setInitWidths("50,80,90");
 		mygrid.setColAlign("left,left,left");
 		mygrid.setColTypes("ro,ed,ed");

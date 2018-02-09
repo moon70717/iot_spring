@@ -3,26 +3,30 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
-	<select id="selectUserList" resultType="user" >
-		select uiNo,uiName,uiAge,uiId,uiPwd,ciNo,uiRegdate,address from user_info
+	 	<select id="selectUserList" resultType="user">
+		select
+		uiNo,uiName,uiAge,uiId,uiPwd,ciNo,uiRegdate,address from user_info
 	</select>
-	<select id="selectUser" resultType="userB" >
-		select uiNo,uiName,uiId from user_info
+	<select id="selectUser" resultType="userB">
+		select
+		uiNo,uiName,uiId from user_info
 	</select>
 	<select id="findUser" resultType="user" parameterType="user">
-		select uiNo,uiName,uiAge,uiId,uiPwd,ciNo,uiRegdate,address from user_info
+		select
+		uiNo,uiName,uiAge,uiId,uiPwd,ciNo,uiRegdate,address from user_info
 		where uiId=${uiId} and uiPwd=${uiPwd}
 	</select>
 	<select id="insertUser" resultType="map" parameterType="map">
-	insert into user_info(uiNo,uiName,uiAge,uiId,uiPwd,ciNo,uiRegdate,address) 
-	values(#{uiNo},#{uiName},#{uiAge},#{uiId},#{uiPwd},#{ciNo},now(),#{address})
+		insert into user_info(uiNo,uiName,uiAge,uiId,uiPwd,ciNo,uiRegdate,address)
+		values(#{uiNo},#{uiName},#{uiAge},#{uiId},#{uiPwd},#{ciNo},now(),#{address})
 	</select>
 	<select id="deleteUser" parameterType="map">
-	delete from user_info where uiNo=#{uiNo}
+		delete from user_info where uiNo=#{uiNo}
 	</select>
 	<select id="updateUser" parameterType="map">
-	update user_info 
-	set uiName=#{uiName},uiAge=#{uiAge},uiId=#{uiId},uiPwd=#{uiPwd},ciNo=#{ciNo},uiRegdate=#{uiRegdate},address=#{address} 
-	where uiNo=#{uiNo}
+		update user_info
+		set
+		uiName=#{uiName},uiAge=#{uiAge},uiId=#{uiId},uiPwd=#{uiPwd},ciNo=#{ciNo},uiRegdate=#{uiRegdate},address=#{address}
+		where uiNo=#{uiNo}
 	</select>
 </mapper>

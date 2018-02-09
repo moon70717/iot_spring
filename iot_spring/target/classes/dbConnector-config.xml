@@ -10,8 +10,10 @@
 	<typeAliases>
 		<typeAlias type="com.iot.spring.vo.ConnectionInfoVO" alias="ci"/>
 		<typeAlias type="com.iot.spring.vo.TableVO" alias="tvo"/>
+		<typeAlias type="com.iot.spring.vo.UserVO" alias="uVO"/>
 	</typeAliases>
 	<mappers>
+		<mapper resource="sql/dbConnector-user.xml" />
 		<mapper resource="sql/connectionInfo.xml" />
 	</mappers>
 </configuration>  

@@ -8,7 +8,7 @@ import com.iot.spring.vo.TableVO;
 
 public interface ConnectionService {
 
-	public void getConnectionList();
+	public List<ConnectionInfoVO> getConnectionList();
 	
 	public void getConnectionInfo(ConnectionInfoVO ci);
 	

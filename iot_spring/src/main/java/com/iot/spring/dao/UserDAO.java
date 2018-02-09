@@ -4,14 +4,23 @@ import java.util.List;
 
 import com.iot.spring.vo.User;
 import com.iot.spring.vo.UserClass;
+import com.iot.spring.vo.UserVO;
 
 public interface UserDAO {
 
-	public UserClass selectUser(UserClass uc);
+	UserClass selectUser(UserClass uc);
 	
-	public UserClass selectUser(int uiNo);
+	UserClass selectUser(int uiNo);
 	
-	public List<User> selectUserA();
+	List<User> selectUserA();
 	
-	public List<UserClass> selectUserList();
+	List<UserClass> selectUserList();
+	
+	UserVO selectUserInfo(UserVO ui);
+	
+	int insertUser(UserVO ui);
+	
+	int checkUserInfo(UserVO ui);
+	
+	List<UserVO> selectUserInfoList(UserVO ui);
 }

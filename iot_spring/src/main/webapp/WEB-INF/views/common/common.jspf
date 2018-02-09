@@ -10,6 +10,8 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <c:set var="ver" value="?version1.0.0"/>
 <c:set var="rPath" value="${root}/resources"/>
+<c:set var="isLogin" value="${(empty sessionScope.isLogin)?false:sessionScope.isLogin}"/>
+<c:set var="proot" value="${root}/path/"/>
 
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap.css${ver}"/>
 <link rel="stylesheet" href="${rPath}/ui/css/bootstrap-theme.css${ver}"/>
@@ -20,6 +22,13 @@
 <link rel="stylesheet" href="${rPath}/dx/fonts/font_roboto/roboto.css">
 <link rel="stylesheet" href="${rPath}/dx/dhtmlx.css">
 
+<!-- 크롬,사파리,IE -->
+<link rel="shortcut icon" href="${rPath}/imgs/favicon/favicon.png" />
+
+<!-- 파이어폭스,오페라 -->
+<!-- gif favicon은 파이어폭스에서만 지원됨 -->
+<link rel="icon" href="${rPath}/imgs/favicon/favicon.gif" type="image/gif" />
+
 <script src="${rPath}/ui/js/jquery-3.2.1.js"></script>
 <script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
 <script src="${rPath}/ui/js/common.js"></script>
@@ -27,5 +36,7 @@
 <script src="${rPath}/ui/js/bootstrap-table.js"></script>
 <script src="${rPath}/dx/dhtmlx.js"></script>
 <%@include file="/WEB-INF/views/common/header.jspf" %>
+
+
 
 <%-- <jsp:include page="/WEB-INF/views/common/header.jspf" flush="false" /> --%>

@@ -6,7 +6,7 @@
 	<select id="selectConnectionList" resultType="ci">
 		select
 		ciNo,ciName,ciUrl,ciPort,ciDatabase,ciUser,
-		ciPwd,ciEtc from
+		ciPwd,ciEtc,uId from
 		connection_info
 	</select>
 	<insert id="insertConnectionInfo" parameterType="ci">
@@ -50,4 +50,11 @@
 		delete from connection_info
 		where ciNo=#{ciNo}
 	</delete>
+	
+	<select id="selectColumns" resultType="map">
+	SELECT column_name,data_type,column_type,column_key
+FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+WHERE `TABLE_SCHEMA`='dbconnector' 
+AND `TABLE_NAME`='user_info';
+	</select>
 </mapper>

@@ -18,8 +18,8 @@ public class ConnectionServiceImpl implements ConnectionService {
 	ConnectionDAO cDAO;
 	
 	@Override
-	public void getConnectionList() {
-		cDAO.selectConnectionInfoList();
+	public List<ConnectionInfoVO> getConnectionList() { 
+		return cDAO.selectConnectionInfoList();
 	}
 
 	@Override

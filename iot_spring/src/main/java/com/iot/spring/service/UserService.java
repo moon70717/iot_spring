@@ -2,25 +2,25 @@ package com.iot.spring.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.iot.spring.vo.User;
+import com.iot.spring.vo.UserVO;
 
 public interface UserService {
 
-	public void getUserList(HttpServletRequest req);
+	UserVO getUserInfo(UserVO ui);
+	
+	void getUserList(HttpServletRequest req);
 
-	public List<User> getUserList();
+	List<User> getUserList();
 
-	public HashMap<String, Object> login(HttpServletRequest req, HttpServletResponse res);
+	HashMap<String, Object> login(HttpServletRequest req, HttpServletResponse res);
 
-	public void logout(HttpServletRequest req);
-
-	public String signin(HttpServletRequest req);
-
-	public String deleteUser(HttpServletRequest req);
-
-	public String updateUser(HttpServletRequest req);
+	void signin(Map<String,Object> rMap, UserVO ui);
+	
+	List<UserVO> getUserInfoList(UserVO ui);
 }

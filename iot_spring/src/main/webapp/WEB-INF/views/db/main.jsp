@@ -23,7 +23,7 @@ div.controls {
 }
 </style>
 <script>
-	var bodyLayout, aLay, dbTree;
+	var bodyLayout, aLay, dbTree, aLay3, Grid;
 	var formObj=[{type:"settings",offsetTop:12,name:"connectionInfo",labelAlign:"left"},
 		{type:"input",name:"ciName",label:"커넥션이름",required:true},
 		{type:"input",name:"ciUrl",label:"접속 url",required:true},
@@ -52,6 +52,8 @@ div.controls {
 		{type:"block",blockOffset:0,list:[
 			{type:"button",name:"saveBtn",value:"저장"},
 			{type:"newcolumn"},
+			{type:"button",name:"delBtn",value:"삭제"},
+			{type:"newcolumn"},
 			{type:"button",name:"cancelBtn",value:"취소"}
 		]}
 	];
@@ -76,7 +78,7 @@ div.controls {
 		aToolbar.addButton("condb", 2, "Connection");
 		aToolbar.attachEvent("onClick", function(id) {
 			alert(id);
-		})
+		});
 		var au = new AjaxUtil("${root}/connection/db_list", null, "get");
 		au.setCallbackSuccess(callback);
 		au.send();
@@ -104,32 +106,50 @@ div.controls {
 		});
 		au.send();
 		
-		
-		var aLay3=bodyLayout.cells("c");
-		var Grid=aLay3.attachGrid();
-		Grid.setImagePath("./codebase/imgs/");
-		Grid.setHeader("uiNo,uiName,uiId,3,4");
-		Grid.setInitWidths("50,80,90");
-		Grid.setColAlign("left,left,left");
-		Grid.setColTypes("ro,ed,ed");
-		Grid.setColSorting("str,str,str");
-		Grid.setColumnIds("uiNo,uiName,uiId,3,4");
-		Grid.init();
-		
 		var aLay4=bodyLayout.cells("d");
 		aLay4.setWidth(450);
 		aLay4.setText("수정");
 		var form4=aLay4.attachForm(formObj2);
 		form4.attachEvent("onButtonClick",function(id){
 			if(id=="saveBtn"){
-				alert("??");
 				if(form4.validate()){
-					form4.send("${root}/connection/insert","post",successCallback);	
+					form4.send("${root}/connection/update","post",successCallback);	
 				}
 			}else if(id=="cancelBtn"){
 				form4.clear();
+			} else if(id=="delBtn"){
+				if(form4.validate()){
+					form4.send("${root}/connection/delete","post",successCallback);
+				}
 			}
 		});
+		
+		
+		aLay3=bodyLayout.cells("c");
+		Grid=aLay3.attachGrid();
+		Grid.setImagePath("./codebase/imgs/");
+		Grid.setHeader("uNo,uName,uId,uPwd,uEmail,admin");
+		Grid.setColumnIds("uNo,uName,uId,uPwd,uEmail,admin");
+		/* Grid.setInitWidths("50,80,90");
+		Grid.setColAlign("left,left,left");
+		Grid.setColTypes("ro,ed,ed");
+		Grid.setColSorting("str,str,str");
+		Grid.setColumnIds("uiNo,uiName,uiId,3,4"); */
+		Grid.init();
+		
+		var au2 = new AjaxUtil("${root}/user/list", null, "GET", "json");
+		
+		au2.setCallbackSuccess(function back(res) {
+			console.log("cc");
+			console.log(res);
+			Grid.parse({
+				data:res
+			}, "js");
+		});
+		au2.send();
+		
+		
+	});
 </script>
 <body>
 
