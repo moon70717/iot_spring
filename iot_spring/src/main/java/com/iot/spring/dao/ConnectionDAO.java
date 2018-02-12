@@ -22,7 +22,7 @@ public interface ConnectionDAO {
 	
 	public List<Map<String,Object>> selectDatabaseList(SqlSession ss) throws Exception;
 	
-	public List<TableVO> selectTableList(String dbName);
+	public List<TableVO> selectTableList(SqlSession ss, String dbName);
 	
 	public List<Map<String,Object>> selectColmnsList(String resource);
 	

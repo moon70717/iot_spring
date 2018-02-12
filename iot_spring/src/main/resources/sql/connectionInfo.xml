@@ -38,7 +38,7 @@
 		show databases
 	</select>
 	
-	<select id="selectTable" resultType="tvo" parameterType="String">
+	<select id="selectTable" resultType="map" parameterType="String">
 		select
 		table_name as tableName,
 		table_comment as tableComment,

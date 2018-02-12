@@ -74,9 +74,12 @@ public class ConnectionServiceImpl implements ConnectionService {
 		return dbList;
 	}
 
+	
+	//각각의 테이블을 보여줌 3레벨
 	@Override
-	public List<TableVO> getTableList(String dbName) {
-		return cDAO.selectTableList(dbName);
+	public List<TableVO> getTableList(HttpSession hs, String dbName) {
+		SqlSession ss = (SqlSession)hs.getAttribute("sqlSession");
+	    return cDAO.selectTableList(ss, dbName);
 	}
 	
 	@Override

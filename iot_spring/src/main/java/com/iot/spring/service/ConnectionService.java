@@ -20,7 +20,7 @@ public interface ConnectionService {
 	
 	public List<Map<String,Object>> getDatabaseList(HttpSession hs,int ciNo) throws Exception;
 	
-	public List<TableVO> getTableList(String dbName);
+	public List<TableVO> getTableList(HttpSession hs, String dbName);
 	
 	public List<Map<String, Object>> getColmnsList(String resource);
 	

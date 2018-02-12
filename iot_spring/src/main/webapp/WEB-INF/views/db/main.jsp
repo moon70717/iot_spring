@@ -42,7 +42,7 @@ function connectionListCB(res){
 function addConnectionCB(res){
    console.log(res);
 }
-function tableListCB(res){
+function dbListCB(res){
    console.log(res);
    if(res.error){
       alert(res.error);
@@ -52,6 +52,21 @@ function tableListCB(res){
    for(var db of res.list){
       var id = db.id;
       var text = db.text;
+      dbTree.addItem(id, text, parentId);
+   }
+   dbTree.openItem(parentId);
+}
+
+function tableListCB(res){
+   console.log(res);
+   if(res.error){
+      alert(res.error);
+      return;
+   }
+   var parentId = res.parentId;
+   for(var db of res.list){
+      var id = db.tableName;
+      var text = db.tableName;
       dbTree.addItem(id, text, parentId);
    }
    dbTree.openItem(parentId);
@@ -75,7 +90,7 @@ dhtmlxEvent(window,"load",function(){
          }
          
          var au = new AjaxUtil("${root}/connection/db_list/" + rowId,null,"get");
-         au.send(tableListCB); 
+         au.send(dbListCB); 
       }else if(id=="addcon"){
          popW.show();
       }

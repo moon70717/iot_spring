@@ -74,13 +74,12 @@ public class ConnectionDAOImpl implements ConnectionDAO {
 		return map;
 	}
 
+	//트리맵 3레벨용
 	@Override
-	public List<TableVO> selectTableList(String dbName) {
-		List<TableVO> result = null;
-		SqlSession ss = ssf.openSession();
-		result = ss.selectList("connection.selectTable", dbName);
-		ss.close();
-		return result;
+	public List<TableVO> selectTableList(SqlSession ss, String dbName) {
+		 List<TableVO> result = null;
+	      result = ss.selectList("connection.selectTable",dbName);
+	      return result;
 	}
 
 	@Override

@@ -109,12 +109,14 @@ public class ConnectionController {
 	
 	@RequestMapping(value="/tables/{dbName}/{parentId}",method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getTableList(@PathVariable("dbName")String dbName,
+			HttpSession hs, 
 			@PathVariable("parentId")String parentId, 
 			Map<String, Object> map) {
 		//hs 보내서 sqlsession을 service에서 받게
-		List<TableVO> tableList=cs.getTableList(dbName);
+		List<TableVO> tableList=cs.getTableList(hs, dbName);
 		log.info("tableList =>{}",tableList);
 		map.put("list", tableList);
+	    map.put("parentId", parentId);
 		return map;
 	}
 	
