@@ -18,7 +18,7 @@
 <script>
    var winF,popW;
    $(document).ready(function(){
-	   alert("${sessionScope.isLogin}");
+/* 	   alert("${sessionScope.isLogin}"); */
       winF = new dhtmlXWindows();
       winF.attachViewportTo("winVP");
       popW = winF.createWindow("win1",20,30,320,300);
@@ -66,8 +66,6 @@
       var res = JSON.parse(res);
       alert(res.msg);
       if(loader.xmlDoc.status == 200){
-          var res = JSON.parse(res);
-          alert(res.msg);
           if(res.loginOk){
         	  document.location.href="${proot}/db/main"
           }

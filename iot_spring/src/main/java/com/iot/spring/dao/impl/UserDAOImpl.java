@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -16,6 +18,8 @@ import com.iot.spring.vo.UserVO;
 @Repository
 public class UserDAOImpl implements UserDAO {
 	
+	private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
+	
 	@Autowired
 	@Qualifier("iot2Ssf")
 	private SqlSessionFactory ssf;
@@ -24,11 +28,20 @@ public class UserDAOImpl implements UserDAO {
 	@Qualifier("dbConnectorSsf")
 	private SqlSessionFactory ssf2;
 	
-	@Override
+	
+	/*@Override
 	public UserClass selectUser(UserClass uc) {
 		SqlSession ss=ssf.openSession();
 		return (UserClass) ss.selectList("user.findUser", uc);
 	}
+	
+	@Override
+	public UserClass selectUser(int uiNo) {
+		
+		return null;
+	}
+	
+	*/
 
 	@Override
 	public List<UserClass> selectUserList() {
@@ -43,11 +56,7 @@ public class UserDAOImpl implements UserDAO {
 		return userList;
 	}
 	
-	@Override
-	public UserClass selectUser(int uiNo) {
-		
-		return null;
-	}
+	
 
 	@Override
 	public UserVO selectUserInfo(UserVO ui) {
@@ -76,7 +85,8 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<UserVO> selectUserInfoList(UserVO ui) {
 		final SqlSession ss=ssf2.openSession();
-		List<UserVO> result=ss.selectList("user.selectUserInfo",ui);
+		List<UserVO> result=ss.selectList("user.findUser",ui);
+		log.info("user =>{}",ui);
 		ss.close();
 		return result;
 	}

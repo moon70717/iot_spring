@@ -11,13 +11,13 @@
 		<typeAlias type="com.iot.spring.vo.Emp" alias="emp" />
 		<typeAlias type="com.iot.spring.vo.UserClass" alias="user"/>
 		<typeAlias type="com.iot.spring.vo.User" alias="userB"/>
-		<typeAlias type="com.iot.spring.vo.ConnectionInfoVO" alias="ci"/>
+		<!-- <typeAlias type="com.iot.spring.vo.ConnectionInfoVO" alias="ci"/> -->
 		<typeAlias type="com.iot.spring.vo.TableVO" alias="tvo"/>
 		<typeAlias type="com.iot.spring.vo.UserVO" alias="uVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="sql/user.xml" />
 		<mapper resource="sql/emp.xml" />
-		<mapper resource="sql/connectionInfo.xml" />
+		<!-- <mapper resource="sql/connectionInfo.xml" /> -->
 	</mappers>
 </configuration>  

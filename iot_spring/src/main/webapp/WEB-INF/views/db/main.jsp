@@ -23,133 +23,99 @@ div.controls {
 }
 </style>
 <script>
-	var bodyLayout, aLay, dbTree, aLay3, Grid;
-	var formObj=[{type:"settings",offsetTop:12,name:"connectionInfo",labelAlign:"left"},
-		{type:"input",name:"ciName",label:"커넥션이름",required:true},
-		{type:"input",name:"ciUrl",label:"접속 url",required:true},
-		{type:"input",name:"ciPort",label:"포트 번호",validate:"ValidInteger",required:true},
-		{type:"input",name:"ciDatabase",label:"접속 데이터베이스",required:true},
-		{type:"input",name:"ciUser",label:"커넥션 아이디",required:true},
-		{type:"input",name:"ciPwd",label:"비밀번호",required:true},
-		{type:"input",name:"uId",label:"유저 아이디",required:true},
-		{type:"input",name:"ciEtc",label:"기타"},
-		{type:"block",blockOffset:0,list:[
-			{type:"button",name:"saveBtn",value:"저장"},
-			{type:"newcolumn"},
-			{type:"button",name:"cancelBtn",value:"취소"}
-		]}
-	];
-	var formObj2=[{type:"settings",offsetTop:12,name:"connectionInfo",labelAlign:"left"},
-		{type:"input",name:"ciNo",label:"수정할 번호",required:true},
-		{type:"input",name:"ciName",label:"커넥션이름",required:true},
-		{type:"input",name:"ciUrl",label:"접속 url",required:true},
-		{type:"input",name:"ciPort",label:"포트 번호",validate:"ValidInteger",required:true},
-		{type:"input",name:"ciDatabase",label:"접속 데이터베이스",required:true},
-		{type:"input",name:"ciUser",label:"커넥션 아이디",required:true},
-		{type:"input",name:"ciPwd",label:"비밀번호",required:true},
-		{type:"input",name:"uId",label:"유저 아이디",required:true},
-		{type:"input",name:"ciEtc",label:"기타"},
-		{type:"block",blockOffset:0,list:[
-			{type:"button",name:"saveBtn",value:"저장"},
-			{type:"newcolumn"},
-			{type:"button",name:"delBtn",value:"삭제"},
-			{type:"newcolumn"},
-			{type:"button",name:"cancelBtn",value:"취소"}
-		]}
-	];
-	function callback(res) {
-		console.log(res);
-		dbTree = aLay.attachTreeView({
-			items : res.dbList
-		});
-		//dbTree.setImagePath("${rPath}/dx/skins/web/imgs/dhxtree_web/");
-		//dbTree.enableDragAndDrop(true);
-	}
-	function successCallback(res){
-		console.log(res.msg);
-	}
-	dhtmlxEvent(window, "load", function() {
-		bodyLayout = new dhtmlXLayoutObject(document.body, "4L");
-		aLay = bodyLayout.cells("a");
-		aLay.setWidth(300);
-		aLay.setText("Connection Info List");
-		var aToolbar = aLay.attachToolbar();
-		aToolbar.addButton("adddb", 1, "add Connector");
-		aToolbar.addButton("condb", 2, "Connection");
-		aToolbar.attachEvent("onClick", function(id) {
-			alert(id);
-		});
-		var au = new AjaxUtil("${root}/connection/db_list", null, "get");
-		au.setCallbackSuccess(callback);
-		au.send();
-		
-		var aLay2=bodyLayout.cells("b");
-		aLay2.setWidth(450);
-		aLay2.setText("insert");
-		var form=aLay2.attachForm(formObj);
-		form.attachEvent("onButtonClick",function(id){
-			if(id=="saveBtn"){
-				alert("??");
-				if(form.validate()){
-					form.send("${root}/connection/insert","post",successCallback);	
-				}
-			}else if(id=="cancelBtn"){
-				form.clear();
-			}
-		});
-		
-		var last;
-		var au = new AjaxUtil("${root}/connection/db_list", null, "get");
-		au.setCallbackSuccess(function a(res) {
-			console.log("last= "+res);
-			last=res;
-		});
-		au.send();
-		
-		var aLay4=bodyLayout.cells("d");
-		aLay4.setWidth(450);
-		aLay4.setText("수정");
-		var form4=aLay4.attachForm(formObj2);
-		form4.attachEvent("onButtonClick",function(id){
-			if(id=="saveBtn"){
-				if(form4.validate()){
-					form4.send("${root}/connection/update","post",successCallback);	
-				}
-			}else if(id=="cancelBtn"){
-				form4.clear();
-			} else if(id=="delBtn"){
-				if(form4.validate()){
-					form4.send("${root}/connection/delete","post",successCallback);
-				}
-			}
-		});
-		
-		
-		aLay3=bodyLayout.cells("c");
-		Grid=aLay3.attachGrid();
-		Grid.setImagePath("./codebase/imgs/");
-		Grid.setHeader("uNo,uName,uId,uPwd,uEmail,admin");
-		Grid.setColumnIds("uNo,uName,uId,uPwd,uEmail,admin");
-		/* Grid.setInitWidths("50,80,90");
-		Grid.setColAlign("left,left,left");
-		Grid.setColTypes("ro,ed,ed");
-		Grid.setColSorting("str,str,str");
-		Grid.setColumnIds("uiNo,uiName,uiId,3,4"); */
-		Grid.init();
-		
-		var au2 = new AjaxUtil("${root}/user/list", null, "GET", "json");
-		
-		au2.setCallbackSuccess(function back(res) {
-			console.log("cc");
-			console.log(res);
-			Grid.parse({
-				data:res
-			}, "js");
-		});
-		au2.send();
-		
-		
-	});
+var bodyLayout, aLay,dbTree,winF,popW; 
+function connectionListCB(res){
+	console.log(res);
+   dbTree = aLay.attachTreeView({
+       items: res.list
+   });
+   dbTree.attachEvent("onDblClick",function(id){
+	  var level=dbTree.getLevel(id);
+      if(level==2){
+    	  
+    	  var text = dbTree.getItemText(id);
+    	  var au = new AjaxUtil("${root}/connection/tables/"+text+"/" + id,null,"get");
+          au.send(tableListCB);
+      }
+   });
+}
+function addConnectionCB(res){
+   console.log(res);
+}
+function tableListCB(res){
+   console.log(res);
+   if(res.error){
+      alert(res.error);
+      return;
+   }
+   var parentId = res.parentId;
+   for(var db of res.list){
+      var id = db.id;
+      var text = db.text;
+      dbTree.addItem(id, text, parentId);
+   }
+   dbTree.openItem(parentId);
+}
+dhtmlxEvent(window,"load",function(){
+
+   bodyLayout = new dhtmlXLayoutObject(document.body,"3L");
+   aLay = bodyLayout.cells("a");
+   aLay.setWidth(300);
+   aLay.setText("Connection Info List");
+   var aToolbar = aLay.attachToolbar();
+   aToolbar.addButton("addcon",1,"add Connector");
+   aToolbar.addButton("condb",2,"Connection");
+   aToolbar.attachEvent("onClick",function(id){
+      if(id=="condb"){
+         var rowId =dbTree.getSelectedId();
+         alert(rowId);
+         if(!rowId){
+            alert("접속할 커넥션을 선택해주세요.");
+            return;
+         }
+         
+         var au = new AjaxUtil("${root}/connection/db_list/" + rowId,null,"get");
+         au.send(tableListCB); 
+      }else if(id=="addcon"){
+         popW.show();
+      }
+   })
+   var au = new AjaxUtil("${root}/connection/list",null,"get");
+   au.send(connectionListCB); 
+
+   winF = new dhtmlXWindows();
+   popW = winF.createWindow("win1",20,30,320,300);
+   //popW.hide(); 
+   popW.setText("Add Connection Info"); 
+   var formObj = [
+              {type:"settings", offsetTop:12,name:"connectionInfo",labelAlign:"left"},
+            {type:"input",name:"ciName", label:"커넥션이름",required:true},
+            {type:"input",name:"ciUrl", label:"접속URL",required:true},
+            {type:"input",name:"ciPort", label:"PORT번호",validate:"ValidInteger",required:true},
+            {type:"input",name:"ciDatabase", label:"데이터베이스",required:true},
+            {type:"input",name:"ciUser", label:"유저ID",required:true},
+            {type:"password",name:"ciPwd", label:"비밀번호",required:true},
+            {type:"input",name:"ciEtc", label:"설명"},
+            {type: "block", blockOffset: 0, list: [
+               {type: "button", name:"saveBtn",value: "저장"},
+               {type: "newcolumn"},
+               {type: "button", name:"cancelBtn",value: "취소"}
+            ]}
+      ];
+   var form = popW.attachForm(formObj,true);
+   popW.hide();
+   
+   form.attachEvent("onButtonClick",function(id){
+      if(id=="saveBtn"){
+         if(form.validate()){
+            form.send("${root}/connection/insert", "post",addConnectionCB);
+         }
+      }else if(id=="cancelBtn"){
+         form.clear();
+      }
+   });
+   
+})
 </script>
 <body>
 

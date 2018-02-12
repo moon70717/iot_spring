@@ -8,7 +8,7 @@
 
 
 <c:set var="root" value="${pageContext.request.contextPath}"/>
-<c:set var="ver" value="?version1.0.0"/>
+<c:set var="ver" value="?version1.0.2"/>
 <c:set var="rPath" value="${root}/resources"/>
 <c:set var="isLogin" value="${(empty sessionScope.isLogin)?false:sessionScope.isLogin}"/>
 <c:set var="proot" value="${root}/path/"/>
@@ -29,12 +29,11 @@
 <!-- gif favicon은 파이어폭스에서만 지원됨 -->
 <link rel="icon" href="${rPath}/imgs/favicon/favicon.gif" type="image/gif" />
 
-<script src="${rPath}/ui/js/jquery-3.2.1.js"></script>
+<script src="${rPath}/ui/js/jquery-3.2.1.js${ver}"></script>
 <script src="${rPath}/ui/js/grid-obj.js${ver}"></script>
-<script src="${rPath}/ui/js/common.js"></script>
-<script src="${rPath}/ui/js/bootstrap-table.js"></script>
-<script src="${rPath}/ui/js/bootstrap-table.js"></script>
-<script src="${rPath}/dx/dhtmlx.js"></script>
+<script src="${rPath}/ui/js/common.js${ver}"></script>
+<script src="${rPath}/ui/js/bootstrap-table.js${ver}"></script>
+<script src="${rPath}/dx/dhtmlx.js${ver}"></script>
 <%@include file="/WEB-INF/views/common/header.jspf" %>
 
 

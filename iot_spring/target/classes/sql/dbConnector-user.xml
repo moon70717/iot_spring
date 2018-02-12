@@ -3,6 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
+	<select id="findUser" parameterType="uVo" resultType="uVo">
+		select uNo,uName,uId,uPwd,uEmail,admin from user_info
+		<where>
+			1=1
+			<choose>
+				<when test="admin=0">
+					and uId=#{uId}	
+				</when>
+				<otherwise>
+				
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+
 	<select id="selectUserInfo" parameterType="uVO" resultType="uVO">
 		select uNo,uName,uId,uPwd,uEmail,admin from user_info
 		<where>
@@ -15,7 +30,7 @@
 			</if>
 		</where>
 	</select>
-	
+
 	<select id="selectUser" parameterType="uVO" resultType="int">
 		select count(1) from user_info
 		<where>

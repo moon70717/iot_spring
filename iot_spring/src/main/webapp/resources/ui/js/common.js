@@ -117,7 +117,10 @@ var AjaxUtil = function (url, params, type, dataType){
 		this.callbackSuccess = callback;
 	}
 	
-	this.send = function(){
+	this.send = function(callback){
+		if(callback){
+			this.callbackSuccess=callback
+		}
 		$.ajax({ 
 	        type     : this.type
 	    ,   url      : this.url

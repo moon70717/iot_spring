@@ -43,12 +43,12 @@ public class UserController {
 		log.info("Before Login HttpSession =>{}",hs.getAttribute("user"));
 		ui=us.getUserInfo(ui);
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("result", false);
+		map.put("isLogin", false);
 		map.put("msg", "로그인 실패");
 		if(ui!=null) {
 			hs.setAttribute("user", ui);
 			hs.setAttribute("isLogin", true);
-			map.put("result", true);
+			map.put("loginOk", true);
 			map.put("msg", "로그인 성공");
 			if(ui.getAdmin()=='1') {
 				hs.setAttribute("admin", "어드민 입니다");
@@ -61,8 +61,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="list", method=RequestMethod.GET)
-	public @ResponseBody List<UserVO> selectUserList(UserVO ui) {
-		
+	public @ResponseBody List<UserVO> selectUserList(HttpSession hs) {
+		UserVO ui =(UserVO) hs.getAttribute("user");
 		return us.getUserInfoList(ui);
 	}
 	
