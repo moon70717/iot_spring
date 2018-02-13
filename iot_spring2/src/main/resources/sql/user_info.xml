@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<select id="selectUserInfo" parameterType="ui" resultType="ui">
+		select
+		uiNo as uNo,uiName as uName,uiId as uId,uiPwd as uPwd,uiEmail as uEmail,admin
+		from user_info
+		<where>
+			1=1
+			<if test="uiId!=null">
+				and uiId=#{uId}
+			</if>
+			<if test="uiPwd!= null">
+				and uiPwd=#{uPwd}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertUserInfo" parameterType="ui">
+		insert into user_info
+		(uName,uId,uPwd,uEmail,admin)
+		values
+		(#{uName},#{uId},
+		#{uPwd},#{uEmail},#{admin})
+	</insert>
+</mapper>
