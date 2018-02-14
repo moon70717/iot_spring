@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="connection">
+	<select id="selectConnectionList" resultType="map"
+		parameterType="String">
+		select
+		ciNo,ciName,ciUrl,ciPort,ciDatabase,ciUser,
+		ciPwd,ciEtc,uId from
+		connection_info
+		<where>
+			uId=#{uId}
+		</where>
+	</select>
+	<select id="selectConnection" resultType="ci" parameterType="int">
+		select
+		ciNo,ciName,ciUrl,ciPort,ciDatabase,ciUser,
+		ciPwd,ciEtc,uId from
+		connection_info
+		<where>
+			ciNo=#{ciNo}
+		</where>
+	</select>
+	<select id="selectDatabaseList" resultType="map">
+		show databases
+	</select>
+	<select id="selectTableList" resultType="map" parameterType="String">
+		select
+		table_name as tableName,
+		table_comment as tableComment,
+		(data_length+index_length)/1024 as tableSize
+		from
+		information_schema.tables
+		where table_schema=#{dbName}
+		and
+		(
+		table_type='BASE TABLE'
+		or table_type='SYSTEM VIEW'
+		);
+	</select>
+</mapper>

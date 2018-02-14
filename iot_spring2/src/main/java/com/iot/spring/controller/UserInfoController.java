@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iot.spring.service.UserInfoService;
@@ -41,6 +42,14 @@ public class UserInfoController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public @ResponseBody Map<String, Object> join(@RequestBody UserInfoVO ui){
+		Map<String,Object> map=new HashMap<String,Object>();
+		log.info("insertUi=>{}",ui);
+		uis.join(map, ui);
+		return map;
+	}
+	
+	@RequestMapping(value="/join2", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> join2(@RequestParam UserInfoVO ui){
 		Map<String,Object> map=new HashMap<String,Object>();
 		log.info("insertUi=>{}",ui);
 		map.put("", "gd");

@@ -5,7 +5,7 @@
 <mapper namespace="user">
 	<select id="selectUserInfo" parameterType="ui" resultType="ui">
 		select
-		uiNo as uNo,uiName as uName,uiId as uId,uiPwd as uPwd,uiEmail as uEmail,admin
+		uNo,uName,uId,uPwd,uEmail,admin
 		from user_info
 		<where>
 			1=1
@@ -15,6 +15,20 @@
 			<if test="uiPwd!= null">
 				and uiPwd=#{uPwd}
 			</if>
+		</where>
+	</select>
+
+	<select id="selectUserInfoList">
+		select
+		uNo,uName,uId,uPwd,uEmail,admin
+		from user_info
+	</select>
+
+	<select id="vaildId" parameterType="ui" resultType="int">
+		select *
+		from user_info
+		<where>
+			uId=#{uId}
 		</where>
 	</select>
 

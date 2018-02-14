@@ -13,8 +13,8 @@
 <link rel="stylesheet" type="text/css" href="${dPath}/dhtmlx.css${ver}"/>
 <link rel="stylesheet" href="${rPath}/css/common.css${ver}" />
 <script src="${rPath}/js/jquery-3.2.1.js${ver}" charset="utf-8"></script>
-<script src="${rPath}/js/common.js${ver}" charset="utf-8"></script>
 <script src="${dPath}/dhtmlx.js${ver}" charset="utf-8"></script>
+<script src="${rPath}/js/common.js${ver}" charset="utf-8"></script>
 
 <!-- Chrome, Safari, IE -->
 <link rel="shortcut icon" href="${rPath}/imgs/favicon/favicon.png">

@@ -9,8 +9,10 @@
 	</settings>
 	<typeAliases>
 		<typeAlias alias="ui" type="com.iot.spring.vo.UserInfoVO"/>
+		<typeAlias alias="ci" type="com.iot.spring.vo.ConnectionInfoVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="sql/user_info.xml"/>
+		<mapper resource="sql/connection_info.xml"/>
 	</mappers>
 </configuration>  

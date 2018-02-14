@@ -7,4 +7,6 @@ public interface UserInfoDAO {
 	public UserInfoVO selectUserInfo(UserInfoVO ui);
 	
 	public int insertUserInfo(UserInfoVO ui);
+	
+	public int validUserId(UserInfoVO ui);
 }
