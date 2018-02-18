@@ -22,6 +22,10 @@
 			ciNo=#{ciNo}
 		</where>
 	</select>
+	<select id="selectTableInfo" resultType="map" parameterType="String">
+		select *
+		from ${value}
+	</select>
 	<select id="selectDatabaseList" resultType="map">
 		show databases
 	</select>
@@ -38,5 +42,8 @@
 		table_type='BASE TABLE'
 		or table_type='SYSTEM VIEW'
 		);
+	</select>
+	<select id="runSql" parameterType="String" resultType="map">
+		${value}
 	</select>
 </mapper>

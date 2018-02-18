@@ -13,10 +13,21 @@
 		<property name="username" value="dbtest" />
 		<property name="password" value="dbtest" />
 	</bean>
-	
+
 	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="bds"/>
-		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="dataSource" ref="bds" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
 
+	<!-- <bean id="trans" class="com.iot.spring.DAO.impl.NaverTransDAOImpl">
+		<property name="url"
+			value="https://openapi.naver.com/v1/language/translate" />
+		<property name="contentType"
+			value="Content-Type: application/x-www-form-urlencoded; charset=UTF-8" />
+		<property name="clientId" value="_mAIamvuyRunXQRIeijq" />
+		<property name="clientSecret" value="k0MGuQps7j" />
+		<property name="source" value="en" />
+		<property name="target" value="ko" />
+	</bean>
+ -->
 </beans>

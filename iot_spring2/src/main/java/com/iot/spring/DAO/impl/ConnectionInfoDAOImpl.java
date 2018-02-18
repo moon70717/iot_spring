@@ -49,4 +49,15 @@ public class ConnectionInfoDAOImpl implements ConnectionInfoDAO {
 	public List<Map<String, Object>> selectTableList(SqlSession ss, String dbName) {
 		return ss.selectList("connection.selectTableList",dbName);
 	}
+
+	//선택한 태이블의 정보를 가져옴
+	@Override
+	public List<Map<String, Object>> selectTableInfo(SqlSession ss, String tbName) {
+		return ss.selectList("connection.selectTableInfo",tbName);
+	}
+
+	@Override
+	public List<Map<String, Object>> RunCustom(SqlSession ss, String sql) {
+		return ss.selectList("connection.runSql",sql);
+	}
 }

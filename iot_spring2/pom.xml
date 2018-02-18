@@ -118,6 +118,7 @@
       </dependency>
 <!-- 여기서 부터 추가한 maven dependency 입니다!! -->
       <!-- Jackson -->
+      <!-- json변환용 -->
       <dependency>
          <groupId>com.fasterxml.jackson.core</groupId>
          <artifactId>jackson-core</artifactId>
@@ -135,11 +136,14 @@
     </dependency>
 
       <!-- Apache Commons -->
+      <!-- input output 제공 -->
       <dependency>
          <groupId>commons-io</groupId>
          <artifactId>commons-io</artifactId>
          <version>2.5</version>
       </dependency>
+      
+      <!-- 파일업로드용 -->
       <dependency>
          <groupId>commons-fileupload</groupId>
          <artifactId>commons-fileupload</artifactId>
@@ -147,6 +151,7 @@
       </dependency>
 
       <!-- mybatis-spring -->
+      <!-- 마이바틱스 -->
       <dependency>
          <groupId>org.mybatis</groupId>
          <artifactId>mybatis-spring</artifactId>
@@ -154,6 +159,7 @@
       </dependency>
 
       <!-- mariadb connector -->
+      <!-- 마리아db 커넥터 -->
       <dependency>
          <groupId>org.mariadb.jdbc</groupId>
          <artifactId>mariadb-java-client</artifactId>
@@ -161,12 +167,16 @@
       </dependency>
 
       <!-- commons-dbcp2 -->
+      <!-- 커넥션풀 -->
+      <!-- 커넥션을 미리 만들어줌 -->
       <dependency>
          <groupId>org.apache.commons</groupId>
          <artifactId>commons-dbcp2</artifactId>
          <version>2.2.0</version>
       </dependency>
+      
       <!-- Mybatis -->
+      <!-- 마이바틱스 -->
       <dependency>
          <groupId>org.mybatis</groupId>
          <artifactId>mybatis</artifactId>
@@ -174,6 +184,7 @@
       </dependency>
 
       <!-- Spring-jdbc -->
+      <!-- 스프링용 jdbc -->
       <dependency>
          <groupId>org.springframework</groupId>
          <artifactId>spring-jdbc</artifactId>
@@ -181,6 +192,7 @@
       </dependency>
 
       <!-- hibernate-validator -->
+      <!-- dbms지원 툴 -->
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-validator</artifactId>
@@ -188,12 +200,15 @@
       </dependency>
 
       <!-- aspectjweaver -->
+      <!-- 자바에서 aop를 사용할수 있게해줌 -->
       <dependency>
          <groupId>org.aspectj</groupId>
          <artifactId>aspectjweaver</artifactId>
          <version>1.6.8</version>
       </dependency>
+      
       <!-- cglib -->
+      <!-- 프록시 객체를 만들수 있게해줌 -->
       <dependency>
          <groupId>cglib</groupId>
          <artifactId>cglib</artifactId>

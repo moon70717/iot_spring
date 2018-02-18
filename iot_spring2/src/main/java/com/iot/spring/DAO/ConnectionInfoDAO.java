@@ -17,4 +17,8 @@ public interface ConnectionInfoDAO {
 	List<Map<String,Object>> selectDatabaseList(SqlSession ss);
 	
 	List<Map<String,Object>> selectTableList(SqlSession ss, String dbName);
+	
+	List<Map<String,Object>> selectTableInfo(SqlSession ss, String tbName);
+	
+	List<Map<String,Object>> RunCustom(SqlSession ss, String sql);
 }

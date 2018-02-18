@@ -14,4 +14,9 @@ public interface ConnectionInfoService {
 	List<Map<String,Object>> getDatabaseList(int ciNo, HttpSession hs) throws Exception;
 	
 	List<Map<String,Object>> getTableList(HttpSession hs, String dbName);
+	
+	List<Map<String,Object>> getTableInfo(HttpSession hs, String dbName);
+	
+	List<Map<String,Object>> RunCustom(HttpSession hs, String sql);
+	
 }

@@ -60,4 +60,19 @@ public class ConnectionInfoServiceImpl implements ConnectionInfoService {
 		return cDAO.selectTableList(ss, dbName);
 	}
 
+	//선택한 테이블의 정보를 받아옴
+	@Override
+	public List<Map<String, Object>> getTableInfo(HttpSession hs, String tbName) {
+		SqlSession ss=(SqlSession) hs.getAttribute("SqlSession");
+		return cDAO.selectTableInfo(ss, tbName);
+	}
+
+	
+	//뗌빵용 수정할것
+	@Override
+	public List<Map<String, Object>> RunCustom(HttpSession hs, String sql) {
+		SqlSession ss=(SqlSession) hs.getAttribute("SqlSession");
+		return cDAO.RunCustom(ss, sql);
+	}
+
 }
