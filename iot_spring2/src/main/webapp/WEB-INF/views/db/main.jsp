@@ -42,10 +42,11 @@ var bodyLayout, dbTree,winF,popW;
 var aLay, bLay, cLay;
 var bTabs, bTab1, bTab2, bTab3;
 var tableInfoGrid;
+var lastDb, sql, tableType;
 function columnListCB(res){
 	console.log(res);
 	if(res.list){
-		tableInfoGrid = bTabs.tabs("tableInfo").attachGrid();
+		tableInfoGrid = bTabs.tabs(tableType).attachGrid();
 		var columns = res.list[0];
 		var headerStr = "";
 		var colTypeStr = "";
@@ -70,17 +71,23 @@ function connectionListCB(res){
 	});
 	dbTree.attachEvent("onDblClick",function(id){
 		var level = dbTree.getLevel(id);
+		//여기서 마지막으로 선택한 데이터베이스를 저장해주면 될듯
 		if(level==2){
 			var text = dbTree.getItemText(id);
 			var au = new AjaxUtil("${root}/connection/tables/" + text + "/" + id,null,"get");
+			lastDb=text;
 			au.send(tableListCB); 
 		}else if(level==3){
 			var pId= dbTree.getParentId(id);
 			var dbName = dbTree.getItemText(pId);
 			var tableName = dbTree.getUserData(id,"orgText");
-			alert("${root}/connection/columns/" + dbName + "/" + tableName);
 			var au = new AjaxUtil("${root}/connection/columns/" + dbName + "/" + tableName,null,"get");
+			tableType="tableData";
 			au.send(columnListCB);
+			
+			/* var au = new AjaxUtil("${root}/connection/desc/" + dbName + "/" + tableName,null,"get");
+			tableType="tableInfo";
+			au.send(columnListCB); */
 		} 
 	});
 }
@@ -161,29 +168,52 @@ dhtmlxEvent(window,"load",function(){
 	];
 	
 	var sqlForm = bTabs.tabs("sql").attachForm(sqlFormObj);
+	
+	//여기서 select와 insert들의 분기를 해주는게 좋을듯
+	//select면 c에 출력되게 insert면 log에 결과값을 넣어주게
+	//주소에 애가 어떤놈인지 넣어주면 될듯
+	//insert, select, update 이렇게 3개로
 	sqlForm.attachEvent("onButtonClick",function(id){
 		if(id=="runBtn"){
-			var sql=sqlForm.getItemValue("sqlTa");
-			var au = new AjaxUtil("${root}/connection/custom/" + sql,null,"get");
+			sql=sqlForm.getItemValue("sqlTa");
+			var au = new AjaxUtil("${root}/connection/custom/"+lastDb +"/"+ sql,null,"get");
 			au.send(customSql);
-			
 		}else if(id=="cancelBtn"){
 			sqlForm.clear();
 		}
 	})
 	
+	//c에 테이블 달아주는부분
 	function customSql(res){
-		console.log(res.result);
-		var logList=["0"];
-		for(var r of res.result){
-			logList.push(r);
+		if(res.result.length>=1){
+			tableInfoGrid =cLay.attachGrid();
+			var columns = res.result[0];
+			var headerStr = "";
+			var colTypeStr = "";
+			for(var key in columns){
+				if(key=="id") continue;
+				headerStr += key + ",";
+				colTypeStr += "ro,";
+			}
+			headerStr = headerStr.substr(0, headerStr.length-1);
+			colTypeStr = colTypeStr.substr(0, colTypeStr.length-1);
+	        tableInfoGrid.setColumnIds(headerStr);
+			tableInfoGrid.setHeader(headerStr);
+			tableInfoGrid.setColTypes(colTypeStr);
+	        tableInfoGrid.init();
+			tableInfoGrid.parse({data:res.result},"js");
+			console.log(res);
 		}
-		console.log(logList);
-		$("#footDiv>.text").append(logList+"<br>");
+		//select 말고 나머지 로그찍는부분
+		else{
+			
+			$("#footDiv>.text").append(sql+" 실행 성공<br>");
+		}
 	}
 	
 	
 	cLay = bodyLayout.cells("c");
+	cLay.setText("Sql Result");
 	winF = new dhtmlXWindows();
 	popW = winF.createWindow("win1",20,30,320,300);
 	//popW.hide(); 

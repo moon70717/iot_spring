@@ -29,6 +29,9 @@
 	<select id="selectDatabaseList" resultType="map">
 		show databases
 	</select>
+	<select id="descTableList" resultType="map" parameterType="String">
+		desc ${value}	
+	</select>
 	<select id="selectTableList" resultType="map" parameterType="String">
 		select
 		table_name as tableName,
@@ -45,5 +48,8 @@
 	</select>
 	<select id="runSql" parameterType="String" resultType="map">
 		${value}
+	</select>
+	<select id="selectDb" parameterType="String">
+		use ${value}
 	</select>
 </mapper>

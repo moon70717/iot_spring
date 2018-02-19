@@ -17,6 +17,8 @@ public interface ConnectionInfoService {
 	
 	List<Map<String,Object>> getTableInfo(HttpSession hs, String dbName);
 	
-	List<Map<String,Object>> RunCustom(HttpSession hs, String sql);
+	List<Map<String,Object>> descTableInfo(HttpSession hs, String dbName);
+	
+	List<Map<String,Object>> RunCustom(HttpSession hs, String sql, String lastDb);
 	
 }
