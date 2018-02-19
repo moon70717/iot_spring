@@ -22,36 +22,40 @@ import com.iot.spring.vo.UserInfoVO;
 @RequestMapping("/user")
 public class UserInfoController {
 
-
 	@Autowired
 	private UserInfoService uis;
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserInfoController.class);
-	
+
 	@RequestMapping("/login")
-	public @ResponseBody Map<String, Object> login(UserInfoVO ui, HttpSession hs){
-		Map<String,Object> map=new HashMap<String,Object>(); 
-		
-		if(uis.login(map, ui)) {
+	public @ResponseBody Map<String, Object> login(UserInfoVO ui, HttpSession hs) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		if (uis.login(map, ui)) {
 			hs.setAttribute("user", map.get("user"));
 		}
-		log.info("returnMap=>{}",map);
+		log.info("returnMap=>{}", map);
 		return map;
 	}
-	
-	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> join(@RequestBody UserInfoVO ui){
-		Map<String,Object> map=new HashMap<String,Object>();
-		log.info("insertUi=>{}",ui);
+
+	@RequestMapping("/logout")
+	public @ResponseBody Map<String, Object> logOut(@RequestBody UserInfoVO ui, HttpSession hs, Map<String, Object> map) {
+		
+		return null;
+	}
+
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> join(@RequestBody UserInfoVO ui) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("insertUi=>{}", ui);
 		uis.join(map, ui);
 		return map;
 	}
-	
-	@RequestMapping(value="/join2", method=RequestMethod.POST)
-	public @ResponseBody Map<String, Object> join2(@RequestParam UserInfoVO ui){
-		Map<String,Object> map=new HashMap<String,Object>();
-		log.info("insertUi=>{}",ui);
+
+	@RequestMapping(value = "/join2", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> join2(@RequestParam UserInfoVO ui) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		log.info("insertUi=>{}", ui);
 		map.put("", "gd");
 		return map;
 	}
