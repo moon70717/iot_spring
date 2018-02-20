@@ -32,8 +32,8 @@ public class SqlController {
 	// ;기준으로 나누면 될듯
 	// 근데 어떻게 넣을까
 	// result에 여러개를 넣는 방법도 있긴 하지만 좀 지저분할듯
-	@RequestMapping("/custom/{lastDb}/{sql}")
-	public @ResponseBody Map<String, Object> runCustomSql(@PathVariable("lastDb") String lastDb, @PathVariable("sql") String sql, Map<String, Object> map, HttpSession hs) {
+	@RequestMapping("/custom/{lastDb}")
+	public @ResponseBody Map<String, Object> runCustomSql(@PathVariable("lastDb") String lastDb, @RequestParam("sql") String sql, Map<String, Object> map, HttpSession hs) {
 		List<List<Map<String, Object>>> result = sis.RunCustom(hs, sql, lastDb);
 		log.info("result =>{}", result);
 		map.put("result", result);

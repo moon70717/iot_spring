@@ -40,7 +40,7 @@ div.controls {
 
 var bodyLayout, dbTree,winF,popW; 
 var aLay, bLay, cLay;
-var bTabs, bTab1, bTab2, bTab3;
+var bTabs, bTab1, bTab2, bTab3, cTabs;
 var tableInfoGrid;
 var lastDb, sql, tableType;
 function columnListCB(res){
@@ -182,9 +182,14 @@ dhtmlxEvent(window,"load",function(){
 	sqlForm.attachEvent("onButtonClick",function(id){
 		if(id=="runBtn"){
 			sql=sqlForm.getItemValue("sqlTa");
-			var au = new AjaxUtil("${root}/sql/custom/"+lastDb+"/"+sql,null,"get");
-			au.send(customSql);
-			
+			/* var au = new AjaxUtil("${root}/sql/custom/"+lastDb+"/"+sql,null,"get");
+			au.send(customSql); */
+			$.ajax({
+				url : "${root}/sql/custom/"+lastDb,
+		        type: "get",
+		        data : { "sql" : sql },
+		        success : customSql
+			});
 		}else if(id=="cancelBtn"){
 			sqlForm.clear();
 		}
@@ -192,33 +197,58 @@ dhtmlxEvent(window,"load",function(){
 	
 	//c에 테이블 달아주는부분
 	function customSql(res){
+		var customSqlTabT="";
+		var sqlN=0;
 		for(var r of res.result){
 			console.log(r);
+			customSqlTabT=customSqlTabT+"{id:'"+sqlN+"',text:'result"+sqlN+"'},";
+			sqlN++;
 		}
-		if(res.result.length>=1){
-			tableInfoGrid =cLay.attachGrid();
-			var columns = res.result[0][0];
-			var headerStr = "";
-			var colTypeStr = "";
-			for(var key in columns){
-				if(key=="id") continue;
-				headerStr += key + ",";
-				colTypeStr += "ro,";
+		3
+		customSqlTabT=customSqlTabT.substring(0,customSqlTabT.length-3);
+		customSqlTabT="["+customSqlTabT+"', active:true}]";
+		//customSqlTabT=JSON.parse(customSqlTabT);
+		customSqlTabT=eval(customSqlTabT);
+		
+		cTabs = cLay.attachTabbar({
+			align:"left",
+			tabs:customSqlTabT
+		});
+		//[{id:'0',text:'result0'},{id:'1',text:'result1'},{id:'2',text:'result2'},{id:'3',text:'result3', active:true}]
+		console.log(cTabs);
+		for(var i=0;i<res.result.length;i++){
+			if(res.result[i].length>=1){
+				attGrid(res.result[i],i);
 			}
-			headerStr = headerStr.substr(0, headerStr.length-1);
-			colTypeStr = colTypeStr.substr(0, colTypeStr.length-1);
-	        tableInfoGrid.setColumnIds(headerStr);
-			tableInfoGrid.setHeader(headerStr);
-			tableInfoGrid.setColTypes(colTypeStr);
-	        tableInfoGrid.init();
-			tableInfoGrid.parse({data:res.result[0]},"js");
-			console.log(res);
 		}
+		
 		//select 말고 나머지 로그찍는부분
-		else{
-			
+		/* else{
 			$("#footDiv>.text").append(sql+" 실행 성공<br>");
+		} */
+	}
+	
+	//그리드 제작
+	// cLay 바꿔줘야함
+	//cLay가 아니라 탭으로 변경
+	function attGrid(res,i){
+		tableInfoGrid =cTabs.tabs(i).attachGrid();
+		var columns = res[0];
+		var headerStr = "";
+		var colTypeStr = "";
+		for(var key in columns){
+			if(key=="id") continue;
+			headerStr += key + ",";
+			colTypeStr += "ro,";
 		}
+		headerStr = headerStr.substr(0, headerStr.length-1);
+		colTypeStr = colTypeStr.substr(0, colTypeStr.length-1);
+        tableInfoGrid.setColumnIds(headerStr);
+		tableInfoGrid.setHeader(headerStr);
+		tableInfoGrid.setColTypes(colTypeStr);
+        tableInfoGrid.init();
+		tableInfoGrid.parse({data:res},"js");
+		console.log(res);
 	}
 	
 	
