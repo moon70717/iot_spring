@@ -12,7 +12,7 @@ import com.iot.spring.DAO.SqlDAO;
 public class SqlDAOImpl implements SqlDAO {
 
 	@Override
-	public List<Map<String, Object>> RunCustom(SqlSession ss, String[] sql, String lastDb) {
+	public List<Map<String, Object>> RunCustom(SqlSession ss, String sql, String lastDb) {
 		ss.selectList("connection.selectDb", lastDb);
 		return ss.selectList("connection.runSql", sql);
 	}

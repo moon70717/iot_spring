@@ -7,5 +7,5 @@ import javax.servlet.http.HttpSession;
 
 public interface SqlService {
 
-	List<Map<String,Object>> RunCustom(HttpSession hs, String sql, String lastDb);
+	List<List<Map<String, Object>>> RunCustom(HttpSession hs, String sql, String lastDb);
 }

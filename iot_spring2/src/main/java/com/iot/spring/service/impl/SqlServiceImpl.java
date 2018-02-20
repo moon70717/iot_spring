@@ -1,5 +1,6 @@
 package com.iot.spring.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +20,15 @@ public class SqlServiceImpl implements SqlService {
 	SqlDAO sDAO;
 	
 	@Override
-	public List<Map<String, Object>> RunCustom(HttpSession hs, String sql, String lastDb) {
-		List<List<Map<String, Object>>> list;
+	public List<List<Map<String, Object>>> RunCustom(HttpSession hs, String sql, String lastDb) {
+		List<List<Map<String, Object>>> list = new ArrayList<List<Map<String, Object>>>();
 		SqlSession ss = (SqlSession) hs.getAttribute("SqlSession");
+		//sql="select * from user_info";
 		String[] sqls=sql.split(";");
-		return sDAO.RunCustom(ss, sqls, lastDb); 
+		for(String s:sqls) {
+			list.add(sDAO.RunCustom(ss, s, lastDb));
+		}
+		return list; 
 	}
 
 }

@@ -7,5 +7,5 @@ import org.apache.ibatis.session.SqlSession;
 
 public interface SqlDAO {
 
-	List<Map<String,Object>> RunCustom(SqlSession ss, String[] sql, String lastDb);
+	List<Map<String,Object>> RunCustom(SqlSession ss, String sql, String lastDb);
 }

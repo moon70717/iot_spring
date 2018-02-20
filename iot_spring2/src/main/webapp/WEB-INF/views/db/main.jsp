@@ -182,8 +182,9 @@ dhtmlxEvent(window,"load",function(){
 	sqlForm.attachEvent("onButtonClick",function(id){
 		if(id=="runBtn"){
 			sql=sqlForm.getItemValue("sqlTa");
-			var au = new AjaxUtil("${root}/sql/custom/"+lastDb +"/"+ sql,null,"get");
+			var au = new AjaxUtil("${root}/sql/custom/"+lastDb+"/"+sql,null,"get");
 			au.send(customSql);
+			
 		}else if(id=="cancelBtn"){
 			sqlForm.clear();
 		}
@@ -191,9 +192,12 @@ dhtmlxEvent(window,"load",function(){
 	
 	//c에 테이블 달아주는부분
 	function customSql(res){
+		for(var r of res.result){
+			console.log(r);
+		}
 		if(res.result.length>=1){
 			tableInfoGrid =cLay.attachGrid();
-			var columns = res.result[0];
+			var columns = res.result[0][0];
 			var headerStr = "";
 			var colTypeStr = "";
 			for(var key in columns){
@@ -207,7 +211,7 @@ dhtmlxEvent(window,"load",function(){
 			tableInfoGrid.setHeader(headerStr);
 			tableInfoGrid.setColTypes(colTypeStr);
 	        tableInfoGrid.init();
-			tableInfoGrid.parse({data:res.result},"js");
+			tableInfoGrid.parse({data:res.result[0]},"js");
 			console.log(res);
 		}
 		//select 말고 나머지 로그찍는부분

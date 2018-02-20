@@ -98,6 +98,8 @@ var AjaxUtil = function (url, params, type, dataType){
 				data[objName] = $("input[name=" + objName +"]").val();
 			}else if(objType=="s"){
 				data[objName] = $("select[name=" + objName +"]").val();
+			}else if(objType=="t"){
+				data[objName] = $("textarea[name=" + objName +"]").val();
 			}
 		}
 		this.param = JSON.stringify(data);
