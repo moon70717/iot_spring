@@ -21,6 +21,4 @@ public interface ConnectionInfoDAO {
 	List<Map<String,Object>> selectTableInfo(SqlSession ss, String tbName);
 	
 	List<Map<String,Object>> selectTableDesc(SqlSession ss, String tbName);
-	
-	List<Map<String,Object>> RunCustom(SqlSession ss, String sql, String lastDb);
 }

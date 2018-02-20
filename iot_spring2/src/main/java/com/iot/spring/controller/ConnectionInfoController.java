@@ -72,12 +72,15 @@ public class ConnectionInfoController {
 			@PathVariable("tableName") String tableName, Map<String, Object> map, HttpSession hs) {
 		tableName = dbName +"." + tableName;
 		List<Map<String, Object>> tInfo = cis.getTableInfo(hs, tableName);
+		List<Map<String, Object>> tDesc = cis.descTableInfo(hs, tableName);
 		map.put("list", tInfo);
+		map.put("descList", tDesc);
 		map.put("parentId", tableName);
 		return map;
 	}
 	
 	//테이블의 정보를 받아오는 역할(desc)
+	//버림
 	@RequestMapping(value = "/desc/{dbName}/{tableName}", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getTableDesc(@PathVariable("dbName") String dbName,
 			@PathVariable("tableName") String tableName, Map<String, Object> map, HttpSession hs) {
@@ -88,17 +91,6 @@ public class ConnectionInfoController {
 		return map;
 	}
 
-	//커스텀 sql
-	//개판이니깐 수정필수
-	@RequestMapping("custom/{lastDb}/{sql}")
-	public @ResponseBody Map<String, Object> runCustomSql(
-			@PathVariable("lastDb") String lastDb,
-			@PathVariable("sql") String sql, Map<String, Object> map,
-			HttpSession hs) {
-		List<Map<String, Object>> result = cis.RunCustom(hs, sql, lastDb);
-		log.info("result =>{}",result);
-		map.put("result", result);
-		return map;
-	}
+	
 
 }

@@ -19,6 +19,4 @@ public interface ConnectionInfoService {
 	
 	List<Map<String,Object>> descTableInfo(HttpSession hs, String dbName);
 	
-	List<Map<String,Object>> RunCustom(HttpSession hs, String sql, String lastDb);
-	
 }

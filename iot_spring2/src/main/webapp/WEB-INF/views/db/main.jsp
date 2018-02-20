@@ -46,25 +46,35 @@ var lastDb, sql, tableType;
 function columnListCB(res){
 	console.log(res);
 	if(res.list){
-		tableInfoGrid = bTabs.tabs(tableType).attachGrid();
-		var columns = res.list[0];
-		var headerStr = "";
-		var colTypeStr = "";
-		for(var key in columns){
-			if(key=="id") continue;
-			headerStr += key + ",";
-			colTypeStr += "ro,";
-		}
-		headerStr = headerStr.substr(0, headerStr.length-1);
-		colTypeStr = colTypeStr.substr(0, colTypeStr.length-1);
-        tableInfoGrid.setColumnIds(headerStr);
-		tableInfoGrid.setHeader(headerStr);
-		tableInfoGrid.setColTypes(colTypeStr);
-        tableInfoGrid.init();
-		tableInfoGrid.parse({data:res.list},"js");
-		console.log(res);
+		tableType="tableData";
+		infoGridCB(res.list);
+	}
+	if(res.descList){
+		tableType="tableInfo";
+		infoGridCB(res.descList);
 	}
 }
+
+function infoGridCB(res){
+	tableInfoGrid = bTabs.tabs(tableType).attachGrid();
+	var columns = res[0];
+	var headerStr = "";
+	var colTypeStr = "";
+	for(var key in columns){
+		if(key=="id") continue;
+		headerStr += key + ",";
+		colTypeStr += "ro,";
+	}
+	headerStr = headerStr.substr(0, headerStr.length-1);
+	colTypeStr = colTypeStr.substr(0, colTypeStr.length-1);
+    tableInfoGrid.setColumnIds(headerStr);
+	tableInfoGrid.setHeader(headerStr);
+	tableInfoGrid.setColTypes(colTypeStr);
+    tableInfoGrid.init();
+	tableInfoGrid.parse({data:res},"js");
+	console.log(res);
+}
+
 function connectionListCB(res){
 	dbTree = aLay.attachTreeView({
 	    items: res.list
@@ -82,13 +92,9 @@ function connectionListCB(res){
 			var dbName = dbTree.getItemText(pId);
 			var tableName = dbTree.getUserData(id,"orgText");
 			var au = new AjaxUtil("${root}/connection/columns/" + dbName + "/" + tableName,null,"get");
-			tableType="tableData";
 			au.send(columnListCB);
 			
-			/* var au = new AjaxUtil("${root}/connection/desc/" + dbName + "/" + tableName,null,"get");
-			tableType="tableInfo";
-			au.send(columnListCB); */
-		} 
+		}
 	});
 }
 function tableListCB(res){
@@ -176,7 +182,7 @@ dhtmlxEvent(window,"load",function(){
 	sqlForm.attachEvent("onButtonClick",function(id){
 		if(id=="runBtn"){
 			sql=sqlForm.getItemValue("sqlTa");
-			var au = new AjaxUtil("${root}/connection/custom/"+lastDb +"/"+ sql,null,"get");
+			var au = new AjaxUtil("${root}/sql/custom/"+lastDb +"/"+ sql,null,"get");
 			au.send(customSql);
 		}else if(id=="cancelBtn"){
 			sqlForm.clear();

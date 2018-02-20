@@ -73,11 +73,4 @@ public class ConnectionInfoServiceImpl implements ConnectionInfoService {
 		return cDAO.selectTableDesc(ss, tbName);
 	}
 
-	// 뗌빵용 수정할것
-	@Override
-	public List<Map<String, Object>> RunCustom(HttpSession hs, String sql, String lastDb) {
-		SqlSession ss = (SqlSession) hs.getAttribute("SqlSession");
-		return cDAO.RunCustom(ss, sql, lastDb);
-	}
-
 }

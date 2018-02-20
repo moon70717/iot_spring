@@ -1,6 +1,5 @@
 package com.iot.spring.DAO.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,13 +58,5 @@ public class ConnectionInfoDAOImpl implements ConnectionInfoDAO {
 	@Override
 	public List<Map<String, Object>> selectTableDesc(SqlSession ss, String tbName) {
 		return ss.selectList("connection.descTableList", tbName);
-	}
-
-	// 커스텀
-	@Override
-	public List<Map<String, Object>> RunCustom(SqlSession ss, String sql, String lastDb) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		ss.selectList("connection.selectDb", lastDb);
-		return ss.selectList("connection.runSql", sql);
 	}
 }
