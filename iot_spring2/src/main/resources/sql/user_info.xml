@@ -24,7 +24,7 @@
 		from user_info
 	</select>
 
-	<select id="vaildId" parameterType="ui" resultType="int">
+	<select id="vaildId" parameterType="ui" resultType="ui">
 		select *
 		from user_info
 		<where>

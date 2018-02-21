@@ -177,3 +177,7 @@ function returnSession(result){
 	alert("설정되었습니다.");
 	pageMove(url);
 }
+
+function alert(res){
+	dhtmlx.alert(res);
+}

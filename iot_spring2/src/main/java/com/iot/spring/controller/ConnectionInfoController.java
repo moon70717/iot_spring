@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iot.spring.service.ConnectionInfoService;
@@ -91,6 +92,23 @@ public class ConnectionInfoController {
 		return map;
 	}
 
+	//add connection을 수행하는 부분
+	@RequestMapping("/insert")
+	public @ResponseBody Map<String,Object> addConnection(@RequestParam Map<String,Object> ci, Map<String,Object> map){
+		map.put("msg", "입력 실패");
+		map.put("biz",false);
+		int result=cis.insertConnectionInfo(ci);
+		log.info("insert result =>{}",result);
+		if(result==1) {
+			map.put("msg","입력 성공");
+			map.put("biz",true);
+		}
+		//uId나 ciName이 중복일때
+		else if(result==3) {
+			map.put("msg", "uId나 ciName이 이미 사용중입니다");
+		}
+		return map;
+	}
 	
 
 }

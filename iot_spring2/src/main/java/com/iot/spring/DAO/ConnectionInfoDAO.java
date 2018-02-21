@@ -21,4 +21,8 @@ public interface ConnectionInfoDAO {
 	List<Map<String,Object>> selectTableInfo(SqlSession ss, String tbName);
 	
 	List<Map<String,Object>> selectTableDesc(SqlSession ss, String tbName);
+	
+	int insertConnectionInfo(Map<String,Object> map);
+	
+	boolean checkConIddupl(Map<String,Object> map);
 }

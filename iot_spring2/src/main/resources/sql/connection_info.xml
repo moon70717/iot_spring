@@ -13,6 +13,13 @@
 			uId=#{uId}
 		</where>
 	</select>
+	<select id="checkDuplConnection" parameterType="map" resultType="map">
+		select * from connection_info
+		<where>
+		uId=#{uId}
+		or ciName=#{ciName}
+		</where>
+	</select>
 	<select id="selectConnection" resultType="ci" parameterType="int">
 		select
 		ciNo,ciName,ciUrl,ciPort,ciDatabase,ciUser,
@@ -30,7 +37,8 @@
 		show databases
 	</select>
 	<select id="descTableList" resultType="map" parameterType="String">
-		desc ${value}	
+		desc
+		${value}
 	</select>
 	<select id="selectTableList" resultType="map" parameterType="String">
 		select
@@ -52,4 +60,9 @@
 	<select id="selectDb" parameterType="String">
 		use ${value}
 	</select>
+	<insert id="insertCon" parameterType="map">
+		insert into
+		connection_info(ciName,ciUrl,ciPort,ciDatabase,ciUser,ciPwd,uId,ciEtc)
+		values(#{ciName},#{ciUrl},#{ciPort},#{ciDatabase},#{ciUser},#{ciPwd},#{uId},#{ciEtc});
+	</insert>
 </mapper>

@@ -52,7 +52,7 @@
       if(loader.xmlDoc.status == 200){
          var res = JSON.parse(res);
          alert(res.msg);
-         if(res.loginOk){
+         if(res.biz){
             location.href="${root}/path/db/main";
          }
       }else{  

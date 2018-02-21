@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,8 @@ public class ConnectionInfoDAOImpl implements ConnectionInfoDAO {
 	@Autowired
 	private SqlSessionFactory ssf;
 
+	private static final Logger log = LoggerFactory.getLogger(ConnectionInfoDAOImpl.class);
+	
 	// 로그인한 아이디에따른 커넥션 리스트를 받아옴
 	@Override
 	public List<Map<String, Object>> selectConnectionInfoList(UserInfoVO ui) {
@@ -58,5 +62,33 @@ public class ConnectionInfoDAOImpl implements ConnectionInfoDAO {
 	@Override
 	public List<Map<String, Object>> selectTableDesc(SqlSession ss, String tbName) {
 		return ss.selectList("connection.descTableList", tbName);
+	}
+
+	//insert
+	//3은 connection name이나 uId가 이미 사용중일경우
+	@Override
+	public int insertConnectionInfo(Map<String, Object> map) {
+		SqlSession ss = ssf.openSession();
+		int result=0;
+		
+		result=ss.insert("connection.insertCon", map);
+		
+		/*if(checkConIddupl(map)) {
+			result=ss.insert("connecton.insertCon", map);
+		}else {
+			result=3;
+		}*/
+		
+		return result;
+	}
+
+	@Override
+	public boolean checkConIddupl(Map<String, Object> map) {
+		SqlSession ss = ssf.openSession();
+		log.info("insert value=>{}",map);
+		if(ss.selectList("connection.checkDuplConnection",map)==null) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -35,13 +35,16 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	@Override
 	public int validUserId(UserInfoVO ui) {
 		SqlSession ss = ssf.openSession();
-		int result = ss.selectOne("user.vaildId", ui);
+		int result = 1;
+		if (ss.selectOne("user.vaildId", ui) == null) {
+			result = 0;
+		}
 		return result;
 	}
-	
-	public List<UserInfoVO> selectUserInfoList(){
-		SqlSession ss=ssf.openSession();
-		List<UserInfoVO> result=ss.selectList("user.selectUserInfoList");
+
+	public List<UserInfoVO> selectUserInfoList() {
+		SqlSession ss = ssf.openSession();
+		List<UserInfoVO> result = ss.selectList("user.selectUserInfoList");
 		return null;
 	}
 

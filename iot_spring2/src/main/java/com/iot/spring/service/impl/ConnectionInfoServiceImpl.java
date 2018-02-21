@@ -73,4 +73,9 @@ public class ConnectionInfoServiceImpl implements ConnectionInfoService {
 		return cDAO.selectTableDesc(ss, tbName);
 	}
 
+	@Override
+	public int insertConnectionInfo(Map<String, Object> ci) {
+		return cDAO.insertConnectionInfo(ci);
+	}
+
 }

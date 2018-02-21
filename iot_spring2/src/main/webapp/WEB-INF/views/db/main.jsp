@@ -38,6 +38,8 @@ div.controls {
 </style>
 <script> 
 
+//alert("${user}");
+
 var bodyLayout, dbTree,winF,popW; 
 var aLay, bLay, cLay;
 var bTabs, bTab1, bTab2, bTab3, cTabs;
@@ -113,7 +115,8 @@ function tableListCB(res){
 	dbTree.openItem(parentId);
 }
 function addConnectionCB(res){
-	console.log(res);
+	var resParse=res.xmlDoc.response;
+	console.log(resParse);
 }
 function dbListCB(res){
 	console.log(res);
@@ -174,12 +177,20 @@ dhtmlxEvent(window,"load",function(){
 	];
 	
 	var sqlForm = bTabs.tabs("sql").attachForm(sqlFormObj);
+	sqlForm.attachEvent("onKeydown", function(inp, ev, name, value){
+		//console.log("inp: "+inp+", ev: "+ev+", name: "+name+", value: "+value);
+		if(ev.key=="F9"){
+			sqlEvnet("runBtn");
+		}
+	});
 	
 	//여기서 select와 insert들의 분기를 해주는게 좋을듯
 	//select면 c에 출력되게 insert면 log에 결과값을 넣어주게
 	//주소에 애가 어떤놈인지 넣어주면 될듯
 	//insert, select, update 이렇게 3개로
-	sqlForm.attachEvent("onButtonClick",function(id){
+	sqlForm.attachEvent("onButtonClick",sqlEvnet)
+	
+	function sqlEvnet(id){
 		if(id=="runBtn"){
 			sql=sqlForm.getItemValue("sqlTa");
 			/* var au = new AjaxUtil("${root}/sql/custom/"+lastDb+"/"+sql,null,"get");
@@ -193,7 +204,7 @@ dhtmlxEvent(window,"load",function(){
 		}else if(id=="cancelBtn"){
 			sqlForm.clear();
 		}
-	})
+	}
 	
 	//c에 테이블 달아주는부분
 	function customSql(res){
@@ -204,7 +215,7 @@ dhtmlxEvent(window,"load",function(){
 			customSqlTabT=customSqlTabT+"{id:'"+sqlN+"',text:'result"+sqlN+"'},";
 			sqlN++;
 		}
-		3
+		
 		customSqlTabT=customSqlTabT.substring(0,customSqlTabT.length-3);
 		customSqlTabT="["+customSqlTabT+"', active:true}]";
 		//customSqlTabT=JSON.parse(customSqlTabT);
@@ -221,6 +232,9 @@ dhtmlxEvent(window,"load",function(){
 				attGrid(res.result[i],i);
 			}
 		}
+		//로그
+		$("#logDiv").append(sql+" 실행 성공<br>");
+		$("#logDiv").scrollTop($("#logDiv")[0].scrollHeight);
 		
 		//select 말고 나머지 로그찍는부분
 		/* else{
@@ -236,26 +250,35 @@ dhtmlxEvent(window,"load",function(){
 		var columns = res[0];
 		var headerStr = "";
 		var colTypeStr = "";
+		var styleStr=[];
 		for(var key in columns){
 			if(key=="id") continue;
 			headerStr += key + ",";
 			colTypeStr += "ro,";
+			styleStr.push("color:red;");
 		}
 		headerStr = headerStr.substr(0, headerStr.length-1);
 		colTypeStr = colTypeStr.substr(0, colTypeStr.length-1);
+		//styleStr = styleStr.substr(0, styleStr.length-1);
         tableInfoGrid.setColumnIds(headerStr);
-		tableInfoGrid.setHeader(headerStr);
+		//tableInfoGrid.setHeader(headerStr);
+		tableInfoGrid.setHeader(
+				headerStr,
+			    null,
+			    styleStr
+		);
 		tableInfoGrid.setColTypes(colTypeStr);
         tableInfoGrid.init();
 		tableInfoGrid.parse({data:res},"js");
 		console.log(res);
+		
 	}
 	
 	
 	cLay = bodyLayout.cells("c");
 	cLay.setText("Sql Result");
 	winF = new dhtmlXWindows();
-	popW = winF.createWindow("win1",20,30,320,300);
+	popW = winF.createWindow("win1",20,30,320,450);
 	//popW.hide(); 
 	popW.setText("Add Connection Info"); 
 	var formObj = [
@@ -264,7 +287,8 @@ dhtmlxEvent(window,"load",function(){
 				{type:"input",name:"ciUrl", label:"접속URL",required:true},
 				{type:"input",name:"ciPort", label:"PORT번호",validate:"ValidInteger",required:true},
 				{type:"input",name:"ciDatabase", label:"데이터베이스",required:true},
-				{type:"input",name:"ciUser", label:"유저ID",required:true},
+				{type:"input",name:"ciUser", label:"유저ID", required:true},
+				{type:"input",name:"uId", label:"사용자 ID", value:"123", readonly:"true"},
 				{type:"password",name:"ciPwd", label:"비밀번호",required:true},
 				{type:"input",name:"ciEtc", label:"설명"},
 				{type: "block", blockOffset: 0, list: [
@@ -290,7 +314,7 @@ dhtmlxEvent(window,"load",function(){
 </script>
 <body>
 	<div id="footDiv" class="my_ftr">
-		<div class="text"></div>
+		<div id="logDiv" class="text" style="overflow: auto"></div>
 	</div>
 </body>
 </html>

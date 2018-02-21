@@ -19,4 +19,6 @@ public interface ConnectionInfoService {
 	
 	List<Map<String,Object>> descTableInfo(HttpSession hs, String dbName);
 	
+	int insertConnectionInfo(Map<String,Object> ci);
+	
 }
