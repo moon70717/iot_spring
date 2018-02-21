@@ -162,9 +162,9 @@ dhtmlxEvent(window,"load",function(){
 	bTabs = bLay.attachTabbar({
 		align:"left",
 		tabs:[
-			{id:"tableInfo", text:"Table Info"},
+			{id:"tableInfo", text:"Table Info", style:"color:red"},
 			{id:"tableData", text:"Table Datas"},
-			{id:"sql", text:"Run Sql", active:true}
+			{id:"sql", text:"<span style='color:red;'>Run Sql</span>", active:true}
 		]
 	});
 	var sqlFormObj = [

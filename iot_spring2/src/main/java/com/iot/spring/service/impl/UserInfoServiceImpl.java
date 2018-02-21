@@ -42,6 +42,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		if (uDAO.insertUserInfo(ui) == 1) {
 			rMap.put("msg", "회원가입 성공");
+			rMap.put("biz", true);
 			return true;
 		}
 		return false;

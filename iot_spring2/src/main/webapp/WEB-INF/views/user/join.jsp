@@ -93,6 +93,9 @@ div#winVP {
 					var aud= new AjaxUtilDx("${root}/user/join",form);
 					function callback(res) {
 						console.log(res);
+						if(res.biz){
+							location.href="${pPath}/user/login";
+						}
 					}
 					
 					aud.send(callback);
