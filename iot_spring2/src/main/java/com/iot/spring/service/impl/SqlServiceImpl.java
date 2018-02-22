@@ -23,7 +23,6 @@ public class SqlServiceImpl implements SqlService {
 	public List<List<Map<String, Object>>> RunCustom(HttpSession hs, String sql, String lastDb) {
 		List<List<Map<String, Object>>> list = new ArrayList<List<Map<String, Object>>>();
 		SqlSession ss = (SqlSession) hs.getAttribute("SqlSession");
-		//sql="select * from user_info";
 		String[] sqls=sql.split(";");
 		for(String s:sqls) {
 			list.add(sDAO.RunCustom(ss, s, lastDb));

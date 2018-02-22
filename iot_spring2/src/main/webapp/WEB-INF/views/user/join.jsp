@@ -20,7 +20,7 @@ div#winVP {
 		//alert("${sessionScope.isLogin}");
 		winF = new dhtmlXWindows();
 		winF.attachViewportTo("winVP");
-		popW = winF.createWindow("win1", 20, 30, 320, 300);
+		popW = winF.createWindow("win1", 20, 30, 320, 470);
 		//popW.hide(); 
 		popW.button("close").hide();
 		popW.button("minmax").hide();

@@ -26,7 +26,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 			rMap.put("user", ui);
 			return true;
 		}
-
 		return false;
 	}
 
@@ -40,7 +39,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			rMap.put("msg", "아이디가 중복되었습니다");
 			return false;
 		}
-		if (uDAO.insertUserInfo(ui) == 1) {
+		else if (uDAO.insertUserInfo(ui) == 1) {
 			rMap.put("msg", "회원가입 성공");
 			rMap.put("biz", true);
 			return true;

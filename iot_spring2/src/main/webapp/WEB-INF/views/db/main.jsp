@@ -83,7 +83,6 @@ function connectionListCB(res){
 	});
 	dbTree.attachEvent("onDblClick",function(id){
 		var level = dbTree.getLevel(id);
-		//여기서 마지막으로 선택한 데이터베이스를 저장해주면 될듯
 		if(level==2){
 			var text = dbTree.getItemText(id);
 			var au = new AjaxUtil("${root}/connection/tables/" + text + "/" + id,null,"get");
@@ -99,6 +98,7 @@ function connectionListCB(res){
 		}
 	});
 }
+
 function tableListCB(res){
 	var parentId = res.parentId;
 	var i=1;
@@ -171,18 +171,29 @@ dhtmlxEvent(window,"load",function(){
 		{type: "block", blockOffset: 10, list: [
 			{type: "button", name:"runBtn",value: "실행"},
 			{type: "newcolumn"},
-			{type: "button", name:"cancelBtn",value: "취소"} 
+			{type: "button", name:"cancelBtn",value: "취소"}
 		]},
 		{type:"input",name:"sqlTa",label:"sql",required:true,rows:10,style:"background-color:#ecf3f9;border:1px solid #39c;width:800"},
 	];
 	
+	//키다운 이벤트
 	var sqlForm = bTabs.tabs("sql").attachForm(sqlFormObj);
 	sqlForm.attachEvent("onKeydown", function(inp, ev, name, value){
-		//console.log("inp: "+inp+", ev: "+ev+", name: "+name+", value: "+value);
 		if(ev.key=="F9"){
 			sqlEvnet("runBtn");
 		}
+		if(ev.ctrlKey&&ev.key=="s"){
+			console.log(ev);
+			sql=sqlForm.getItemValue("sqlTa")
+			setDown(1);
+		}
 	});
+	
+	function setDown(res){
+		$("#downLink").prop('href',"data:application/text;charset=utf-8,"+sql);
+		$("#downLink").prop('download',"insert.sql");
+		$("#downLink")[0].click();
+	}
 	
 	//여기서 select와 insert들의 분기를 해주는게 좋을듯
 	//select면 c에 출력되게 insert면 log에 결과값을 넣어주게
@@ -193,10 +204,8 @@ dhtmlxEvent(window,"load",function(){
 	function sqlEvnet(id){
 		if(id=="runBtn"){
 			sql=sqlForm.getItemValue("sqlTa");
-			/* var au = new AjaxUtil("${root}/sql/custom/"+lastDb+"/"+sql,null,"get");
-			au.send(customSql); */
 			$.ajax({
-				url : "${root}/sql/custom/"+lastDb,
+				url : "${root}/sqls/custom/"+lastDb,
 		        type: "get",
 		        data : { "sql" : sql },
 		        success : customSql
@@ -218,28 +227,20 @@ dhtmlxEvent(window,"load",function(){
 		
 		customSqlTabT=customSqlTabT.substring(0,customSqlTabT.length-3);
 		customSqlTabT="["+customSqlTabT+"', active:true}]";
-		//customSqlTabT=JSON.parse(customSqlTabT);
 		customSqlTabT=eval(customSqlTabT);
 		
 		cTabs = cLay.attachTabbar({
 			align:"left",
 			tabs:customSqlTabT
 		});
-		//[{id:'0',text:'result0'},{id:'1',text:'result1'},{id:'2',text:'result2'},{id:'3',text:'result3', active:true}]
 		console.log(cTabs);
 		for(var i=0;i<res.result.length;i++){
 			if(res.result[i].length>=1){
 				attGrid(res.result[i],i);
 			}
 		}
-		//로그
 		$("#logDiv").append(sql+" 실행 성공<br>");
 		$("#logDiv").scrollTop($("#logDiv")[0].scrollHeight);
-		
-		//select 말고 나머지 로그찍는부분
-		/* else{
-			$("#footDiv>.text").append(sql+" 실행 성공<br>");
-		} */
 	}
 	
 	//그리드 제작
@@ -316,5 +317,6 @@ dhtmlxEvent(window,"load",function(){
 	<div id="footDiv" class="my_ftr">
 		<div id="logDiv" class="text" style="overflow: auto"></div>
 	</div>
+	<a href="#" id="downLink" style="display:none" download="#"></a>
 </body>
 </html>

@@ -38,7 +38,6 @@ public class LogPrintAspect {
 		long startTime = System.currentTimeMillis();
 		try {
 			obj = pjp.proceed();
-			log.info("갔냐?????");
 		} catch (Throwable e) {
 			ObjectMapper om = new ObjectMapper();
 			log.error("error=>{}", e);
