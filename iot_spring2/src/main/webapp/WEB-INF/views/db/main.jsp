@@ -184,7 +184,7 @@ dhtmlxEvent(window,"load",function(){
 		}
 		if(ev.ctrlKey&&ev.key=="s"){
 			console.log(ev);
-			sql=sqlForm.getItemValue("sqlTa")
+			sql=sqlForm.getItemValue("sqlTa");
 			setDown(1);
 		}
 	});
